@@ -49,7 +49,7 @@ module.exports = {
   else {
       let {employee_id, type, value} = req.body.db_object;
       db.update_user(type,value,employee_id);
-      res.status(200).send();
+      res.status(200).send("all is well");
   }
 
   
