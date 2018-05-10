@@ -14,7 +14,6 @@ module.exports = {
    })
   }
   else {
-   console.log("Not found");
    res.status(500).send( "Not found." );
   }
  },

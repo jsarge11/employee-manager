@@ -50,12 +50,8 @@ passport.use(new Auth0Strategy ({
                   if (!user[0].img) {
                         user[0].img = 'https://s.gravatar.com/avatar/836deac78e49596a0c57b0dc245fdc63?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fsa.png'
                   }
-                  console.log('returning');
                   return done(null, Object.assign({}, profile, user))
                  
-            }
-            else {
-                  console.log('getting here');
             }
       })
       
@@ -63,11 +59,9 @@ passport.use(new Auth0Strategy ({
 
 //puts info on session
 passport.serializeUser((profile, done) => {
-      console.log('serializing');
       return done(null, profile)
 })
 passport.deserializeUser((profile, done) => {
-      console.log('deserializing');
       return done(null, profile)
 })
 
