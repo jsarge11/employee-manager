@@ -1,0 +1,22 @@
+html {
+ height: 100%;
+ color: white;
+}
+.home-page {
+ height: 100%;
+}
+.main-page {
+ background-color:#171717;
+}
+h1 {
+ color: white;
+}
+button {
+ color: black;
+}
+#loading {
+ display: flex;
+ align-items: center;
+ justify-content: center;
+ height: 100vh;
+}

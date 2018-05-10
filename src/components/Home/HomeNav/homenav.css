@@ -1,0 +1,7 @@
+.homenav {
+ height: 20vh;
+ background: #3298D1;
+ display: flex;
+ align-items: center;
+ justify-content: space-around;
+}

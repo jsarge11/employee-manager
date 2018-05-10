@@ -1,0 +1,1 @@
+select * from employee_no_social;

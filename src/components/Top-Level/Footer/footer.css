@@ -1,0 +1,39 @@
+.footerWrapper {
+ background-color:#171717;
+ bottom: 0;
+}
+.footer {
+ display: flex;
+ align-content: flex-start;
+ width: 100%;
+ color: white;
+ padding: 0 10%;
+}
+.footer-section {
+ height: 15vh;
+ width: 25vw;
+ margin: 5% 0;
+}
+#copyright {
+ height: 15vh;
+ font-size: 15px;
+ text-align: center;
+ color: white;
+ display: flex;
+ align-items: flex-end;
+ justify-content: center;
+}
+#section-three {
+ width: 50vh
+}
+#comment-box {
+ width: 50vh;
+ height: 10vh;
+ color: black;
+ margin-top: 5%;
+ resize: none;
+}
+#comment-email {
+ width: 50vh;
+ margin-bottom: 5%;
+}

@@ -1,0 +1,6 @@
+#about-wrapper {
+ height: 75%;
+ display: flex;
+ align-items: center;
+ justify-content: center;
+}

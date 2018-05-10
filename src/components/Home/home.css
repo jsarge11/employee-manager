@@ -1,0 +1,34 @@
+.home {
+ height: 100%;
+ width: 100%;
+}
+.tree {
+ height: 60vh;
+ overflow: auto;
+}
+.loading {
+ position: absolute;
+ top: 50%;
+ left: 50%;
+}
+#react-org-chart {
+ height: 100vh;
+ background:
+ linear-gradient(-90deg, rgba(0, 0, 0, .03) 1px, transparent 1px),
+ linear-gradient(rgba(0, 0, 0, .03) 1px, transparent 1px),
+ linear-gradient(-90deg, rgba(0, 0, 0, .03) 1px, transparent 1px),
+ linear-gradient(rgba(0, 0, 0, .03) 1px, transparent 1px),
+ linear-gradient(transparent 3px, transparent 3px, transparent 78px, transparent 78px),
+ linear-gradient(-90deg, transparent 1px, transparent 1px),
+ linear-gradient(-90deg, transparent 3px, transparent 3px, transparent 78px, transparent 78px),
+ linear-gradient(transparent 1px, transparent 1px), transparent;
+background-size:
+ 10px 10px,
+ 10px 10px,
+ 10px 10px,
+ 10px 10px,
+ 10px 10px,
+ 10px 10px,
+ 10px 10px,
+ 10px 10px;
+}

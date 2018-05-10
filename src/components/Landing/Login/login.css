@@ -1,0 +1,49 @@
+#login-wrapper {
+ height: 100%;
+ width: 100%;
+ display: flex;
+ flex-direction: column;
+ align-items: center;
+ justify-content: center;
+}
+#login-header {
+ width: 100%;
+ height: 10%;
+ background: lightgrey;
+ border-radius: 10px 10px 0px 0px;
+}
+#login {
+ background: white;
+ border-radius: 10px;
+ display: flex;
+ align-items: center;
+ flex-direction: column;
+ width: 40vh;
+ height: 40vh;
+}
+#email-login {
+ margin: 5%;
+ display: flex;
+ flex-direction: column;
+}
+#social-login {
+ margin: 5%;
+ display: flex;
+ flex-direction: column;
+
+}
+
+#sign-in-google:active {
+ content: url("../../../img/google_signin_normal.png")
+}
+#sign-in-google:hover {
+ content: url("../../../img/google_signin_pressed.png");
+ cursor: pointer;
+}
+#sign-in-linkedin:active {
+ content: url("../../../img/Sign-In-Large---Active.png")
+}
+#sign-in-linkedin:hover {
+ cursor: pointer;
+ content: url("../../../img/Sign-In-Large---Hover.png")
+}

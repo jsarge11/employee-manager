@@ -1,0 +1,2 @@
+insert into register_requests (registration_key, first_name, last_name, work_phone, personal_phone, work_email, personal_email, address, city, state, zip, googleid)
+values ('12345','asdf','2345','99999','9999','9999999','999999','99999','9999','UT','6345345', '5af1c8ea04eb0b243f1e7cd5')

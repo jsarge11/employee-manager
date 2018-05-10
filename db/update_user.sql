@@ -1,0 +1,1 @@
+select * from update_columns_on_employee($1,$2,$3);

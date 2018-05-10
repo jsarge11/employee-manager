@@ -1,0 +1,45 @@
+{
+ "config": {
+  "transformRequest": {},
+  "transformResponse": {},
+  "timeout": 0,
+  "xsrfCookieName": "XSRF-TOKEN",
+  "xsrfHeaderName": "X-XSRF-TOKEN",
+  "maxContentLength": -1,
+  "headers": {
+   "Accept": "application/json, text/plain, */*",
+   "Content-Type": "application/json;charset=utf-8"
+  },
+  "method": "post",
+  "url": "user/getcompany",
+  "data": "{\"companyID\":\"123456\"}"
+ },
+ "request": {},
+ "response": {
+  "data": "",
+  "status": 404,
+  "statusText": "Company does not exist.",
+  "headers": {
+   "date": "Tue, 24 Apr 2018 18:13:42 GMT",
+   "connection": "close",
+   "x-powered-by": "Express",
+   "content-length": "0"
+  },
+  "config": {
+   "transformRequest": {},
+   "transformResponse": {},
+   "timeout": 0,
+   "xsrfCookieName": "XSRF-TOKEN",
+   "xsrfHeaderName": "X-XSRF-TOKEN",
+   "maxContentLength": -1,
+   "headers": {
+    "Accept": "application/json, text/plain, */*",
+    "Content-Type": "application/json;charset=utf-8"
+   },
+   "method": "post",
+   "url": "user/getcompany",
+   "data": "{\"companyID\":\"123456\"}"
+  },
+  "request": {}
+ }
+}

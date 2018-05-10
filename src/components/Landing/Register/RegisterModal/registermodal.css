@@ -1,0 +1,29 @@
+h5 {
+ margin: 0;
+}
+.modal {
+ overflow: auto;
+ z-index: 999;
+}
+.modal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#registrationInput {
+ display: flex;
+ flex-direction: column;
+}
+input {
+ margin-top: 20px;
+}
+
+.google-btn:hover {
+    cursor: pointer;
+    content: url("../../../../img/google_signin_pressed.png")
+}
+.linkedin-btn:hover {
+    cursor: pointer;
+    content: url("../../../../img/Sign-In-Large---Hover.png")
+}

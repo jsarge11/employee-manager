@@ -1,0 +1,37 @@
+.personalWrapper {
+ position: fixed;
+ border-radius: 5px;
+ font-size: 20px;
+ height: 100vh;
+ width: 40vw;
+ display: flex;
+ justify-content: flex-start;
+ background-color: white;
+ -webkit-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+-moz-box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+box-shadow: 10px 10px 5px 0px rgba(0,0,0,0.75);
+padding-left: 5%;
+padding-top: 5%;
+z-index: 999;
+}
+.open {
+
+ top: 0;
+ left: 0;
+ transition: left 1.5s ease-in-out;
+}
+.closed {
+ top: 0;
+ left: -100vw;
+ transition: left 1.5s ease-in-out;
+}
+#personalClose {
+ float: right;
+ margin: 50px;
+}
+#personalClose:hover {
+ cursor: pointer;
+}
+.subtitle {
+ color: grey;
+}

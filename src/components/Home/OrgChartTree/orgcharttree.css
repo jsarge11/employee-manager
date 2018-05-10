@@ -1,0 +1,19 @@
+.initechNode {
+ border-radius: 3px;
+ padding: 5px;
+ display: inline-block;
+ text-align: left;
+}
+
+#initechOrgChart .orgNodeChildGroup .nodeGroupLineVerticalMiddle {
+ border-right: solid 3px red
+}
+
+#initechOrgChart .nodeLineBorderTop {
+ border-top: solid 3px red;
+}
+
+#individual-card {
+ margin-left: 34%;
+ margin-bottom: 5%;
+}
