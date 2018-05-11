@@ -5,6 +5,7 @@
   "homepage": "http://argosvisual.com/",
   "main": "server/server.js",
   "dependencies": {
+    "@latticehr/react-org-chart": "file:react-org-chart",
     "auth0-lock": "^11.6.1",
     "axios": "^0.18.0",
     "bcryptjs": "^2.4.3",

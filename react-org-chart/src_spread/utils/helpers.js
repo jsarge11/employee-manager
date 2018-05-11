@@ -1,7 +1,8 @@
 module.exports = {
   getTextForTitle,
   getTextForDepartment,
-  getCursorForNode
+  getCursorForNode,
+  getTextForEmail
 };
 
 function getTextForTitle(datum) {
@@ -10,9 +11,8 @@ function getTextForTitle(datum) {
   }
 
   const { person: { totalReports } } = datum;
-  const pluralEnding = totalReports > 1 ? 's' : '';
 
-  return `${totalReports} report${pluralEnding}`;
+  return `Manages: ${totalReports}`;
 }
 
 const departmentAbbrMap = {
@@ -39,8 +39,22 @@ function getTextForDepartment(datum) {
   if (departmentAbbrMap[department]) {
     return departmentAbbrMap[department].toUpperCase();
   }
+  if (department.length < 5) {
+    return "ext: " + datum.person.department.substring(0, 10).toUpperCase();
+  }
+  else {
+    return "phone: " + datum.person.department.substring(0, 10).toUpperCase();
+  }
+  
+}
 
-  return datum.person.department.substring(0, 3).toUpperCase();
+function getTextForEmail(datum) {
+  if (!datum.person.link) {
+    return ''
+  }
+
+  const { link } = datum.person
+  return link;
 }
 
 function getCursorForNode(datum) {

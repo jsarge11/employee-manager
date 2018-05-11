@@ -30,7 +30,7 @@ class Home extends React.Component {
       console.log(res.data);
       let treeJson = this.toJson(res.data.employees)
       let reactOrgChart = this.createNestedObject(treeJson);
-      console.log(res.data.obj[0].company_name)
+
       this.setState({ 
         data : reactOrgChart,
         employeesloaded : true,
@@ -62,9 +62,10 @@ toJson = (data) => {
       id: item.employee_id,
       person: {
         name: `${item.first_name} ${item.last_name}`,
+        department: item.work_phone,
         title: item.job_title,
         link: item.work_email,
-        phone: item.work_phone
+        totalReports: 0
       },
       children: [],
       reports_to: item.reports_to
@@ -86,10 +87,12 @@ createNestedObject = (arr) => {
       let arrItem = newArr.find((item) => +item.id === +reports_to);
       if (arrItem) {
         arrItem.children.push(newArr[i]);
+        arrItem.person.totalReports += 1;
       }
     }
   }
   let object = newArr.find((item)=> +item.id === 1) 
+  console.log(JSON.stringify(Object))
   return object;
 }
 
@@ -125,7 +128,7 @@ changeBackgroundImage = (value) => {
         <br/>
         {this.state.employeesloaded ? 
         <div className = "tree">
-          <OrgChart tree={this.state.data}/>
+          <OrgChart tree={this.state.data} nodeHeight={180}/>
         </div>
           : 
         <div className="loading">

@@ -13,7 +13,7 @@ const express = require('express'),
 require('dotenv').config()
 
 let app = express();
-// app.use( express.static( `${__dirname}/../build` ) );
+app.use( express.static( `${__dirname}/../build` ) );
 app.use(bodyParser.json());
 
 const {
@@ -71,9 +71,8 @@ app.get('/auth/google', passport.authenticate('auth0', {connection: 'google-oaut
 app.get('/auth/linkedin', passport.authenticate('auth0', {connection: 'linkedin'}));
 
 app.get('/callback/auth', passport.authenticate('auth0', {
-      successRedirect: "http://localhost:3000/#/home",
-      // successRedirect: "https://google.com",
-      failureRedirect: "http://localhost:3000/#/"
+      successRedirect: process.env.SUCCESS_REDIRECT,
+      failureRedirect: process.env.FAILURE_REDIRECT
 }))
 
 //user control

@@ -83,7 +83,6 @@ login = () => {
 
   return (
    <div id="landing"> 
-   
    <div id="login-wrapper">
    
        <Paper style={style} zDepth={5}>

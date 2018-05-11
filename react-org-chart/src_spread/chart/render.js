@@ -59,7 +59,7 @@ function render(config) {
   nodeEnter.append('rect').attr('width', nodeWidth).attr('height', nodeHeight).attr('id', d => d.id).attr('fill', backgroundColor).attr('stroke', borderColor).attr('rx', nodeBorderRadius).attr('ry', nodeBorderRadius).style('cursor', helpers.getCursorForNode).attr('class', 'box');
 
   const namePos = {
-    x: nodePaddingX * 1.4 + avatarWidth,
+    x: nodePaddingX * 1.4,
     y: nodePaddingY * 1.8
 
     // Person's Name
@@ -71,22 +71,28 @@ function render(config) {
   const heightForTitle = 45; // getHeightForText(d.person.title)
 
   // Person's Reports
-  nodeEnter.append('text').attr('class', PERSON_REPORTS_CLASS).attr('x', namePos.x).attr('y', namePos.y + nodePaddingY + heightForTitle).attr('dy', '.9em').style('font-size', 14).style('font-weight', 500).style('cursor', 'pointer').style('fill', reportsColor).text(helpers.getTextForTitle);
+  nodeEnter.append('text').attr('class', PERSON_REPORTS_CLASS).attr('x', 20).attr('y', nodeHeight - 28).attr('dy', '.9em').style('font-size', 14).style('font-weight', 500).style('cursor', 'pointer').style('fill', reportsColor).text(helpers.getTextForTitle);
 
   // Person's Avatar
   nodeEnter.append('image').attr('width', avatarWidth).attr('height', avatarWidth).attr('x', nodePaddingX).attr('y', nodePaddingY).attr('stroke', borderColor).attr('src', d => d.person.avatar).attr('xlink:href', d => d.person.avatar).attr('clip-path', 'url(#avatarClip)');
 
-  // Person's Department
-  nodeEnter.append('text').attr('class', getDepartmentClass).attr('x', 34).attr('y', avatarWidth + nodePaddingY * 1.2).attr('dy', '.9em').style('cursor', 'pointer').style('fill', titleColor).style('font-weight', 600).style('font-size', 8).attr('text-anchor', 'middle').text(helpers.getTextForDepartment);
+  // Person's Email
+  nodeEnter.append('text').attr('class', getDepartmentClass).attr('x', 20).attr('y', nodeHeight - 60).attr('dy', '.9em').style('cursor', 'pointer').style('fill', titleColor).style('font-size', 14).text(helpers.getTextForEmail);
+
+  // Person's Department / Phone Number
+  nodeEnter.append('text').attr('class', getDepartmentClass).attr('x', 20).attr('y', nodeHeight - 45).attr('dy', '.9em').style('cursor', 'pointer').style('fill', titleColor).style('font-size', 14).text(helpers.getTextForDepartment);
 
   // Person's Link
-  const nodeLink = nodeEnter.append('a').attr('class', PERSON_LINK_CLASS).attr('xlink:href', d => d.person.link || 'https://lattice.com').on('click', datum => {
+  const nodeLink = nodeEnter.append('a').attr('class', PERSON_LINK_CLASS).attr('xlink:href', d => "mailto:" + d.person.link).on('mouseover', 
+  d => {}).on('click', datum => {
     d3.event.stopPropagation();
     // TODO: fire link click handler
     if (onPersonLinkClick) {
       onPersonLinkClick(datum, d3.event);
     }
   });
+
+  nodeLink.append('text').attr('x', nodeWidth - 75).attr('y', nodeHeight - 17).style('fill', titleColor).style('cursor', 'pointer').text("EMAIL:");
 
   iconLink({
     svg: nodeLink,
