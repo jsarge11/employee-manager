@@ -15,8 +15,12 @@ module.exports = {
 
  getEmployees: (req, res) => {
   const db = req.app.get('db');
-  db.get_employees().then (employees => {
-   res.status(200).send( employees ); 
-  }).catch(error=>console.log(error)) 
- }
+  let company_name;
+  db.get_company_name(req.query.id).then (name => {
+    db.get_employees(req.query.id).then (employees => {
+     let obj = name;
+     res.status(200).send( {employees, obj} ); 
+    }).catch(error=>console.log(error)) 
+   }).catch(error=>console.log(error))
+  }
 }

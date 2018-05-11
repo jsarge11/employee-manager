@@ -8,8 +8,9 @@ function HomeNav(props) {
  return (
   <div className="homenav">
    <div>
-      <h4>Welcome {props.user.displayName}</h4>
-      <h4>position: {props.user[0].job_title}</h4>
+      <h4>Welcome back, {props.user.displayName}</h4>
+      <h4>Company: {props.company_name}</h4>
+      <h4>Position: {props.user[0].job_title}</h4>
       {props.user[0].is_hr ? <Notifications/> : ''}
       <button onClick={()=>props.togglePersonal()}>personal</button>
       <button onClick={()=>props.logOutStatus()}>Logout</button>

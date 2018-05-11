@@ -3,7 +3,7 @@ import { updateUser, changeImage, logOut } from '../../ducks/reducer'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import OrgChart from '@latticehr/react-org-chart'
+import OrgChart from '@latticehr/react-org-chart/src_spread/react/org-chart'
 import HomeNav from './HomeNav/HomeNav';
 import Personal from './Personal/Personal'
 import loading from '../../img/loading.svg'
@@ -17,34 +17,39 @@ class Home extends React.Component {
     employeesloaded: false,
     status: 'Loading',
     isWhite: true,
-    data: {}
-  }
+    data: {},
+    company_name: ''
+   }
  
  componentDidMount() {
   axios.get('/user/auth').then ( res => {
     this.props.updateUser(res.data.user);
-    // this.props.changeImage(res.data.img[0].img);
+    let { company_id } = res.data.user[0];
+
+    axios.get('/employees?id=' + company_id).then ( res => {
+      console.log(res.data);
+      let treeJson = this.toJson(res.data.employees)
+      let reactOrgChart = this.createNestedObject(treeJson);
+      console.log(res.data.obj[0].company_name)
+      this.setState({ 
+        data : reactOrgChart,
+        employeesloaded : true,
+        company_name: res.data.obj[0].company_name
+      })
+  
+    }).catch(() => {
+      alert('Something went wrong, we apologize');
+      this.setState({ status: 'fail' })
+    })
   }).catch((error) => {
-    // this.props.changeImage()
     console.log(error);
     console.log('user failed')
     this.setState({ status: 'fail'})
+    
   }
   )
-
-  axios.get('/employees').then ( res => {
-    let treeJson = this.toJson(res.data)
-    let reactOrgChart = this.createNestedObject(treeJson);
-
-    this.setState({ 
-      data : reactOrgChart,
-      employeesloaded : true
-    })
-
-  }).catch(() => {
-    console.log('employees failed')
-    this.setState({ status: 'fail' })
-  })
+ 
+  
 }
 
 
@@ -100,7 +105,7 @@ changeBackgroundImage = (value) => {
 }
 
  render() {
-   console.log(this.state.data)
+ 
   if (this.state.status !== 'fail') {
   return (
    <div id="home-wrapper">
@@ -109,6 +114,7 @@ changeBackgroundImage = (value) => {
       <div> 
         <HomeNav togglePersonal={this.togglePersonal}
                  logOutStatus={this.logOutStatus}
+                 company_name={this.state.company_name}
         
         /> 
         
