@@ -35,10 +35,10 @@ class Landing extends React.Component {
             <li>  &#187; <em>Roles</em> From CEO to new-hire, this tool provides appropriate users with the appropriate information.</li>
           </ul>
           <div className="section-description">
-            <video id="section-video" nocontrols="true" autoPlay muted loop>
+            {/* <video id="section-video" nocontrols="true" muted loop>
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
-      </video>
+      </video> */}
           </div>
         </div>
 

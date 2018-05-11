@@ -4,3 +4,13 @@
  align-items: center;
  justify-content: center;
 }
+.close-paper {
+ color: black;
+ height: 100%;
+ margin-bottom: 3%;
+}
+.close-paper:hover {
+ cursor: pointer;
+ color: lightgrey;
+ text-decoration: none;
+}

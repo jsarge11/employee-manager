@@ -22,6 +22,10 @@
 .menu-item {
  margin: 10px;
  font-size: 25px;
+ font-weight: 200;
+}
+span.menu-item {
+ color: white;
 }
 .menu-item:hover {
  color: #23527c;
@@ -33,6 +37,8 @@
 }
 .welcome-message {
  font-size: 15px;
+ font-weight: 200;
+ color: white;
 }
 @media(min-width: 800px) {
  .nav-icon {

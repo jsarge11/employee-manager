@@ -1,6 +1,7 @@
 import React from 'react'
 import Paper from 'material-ui/Paper'
 import {Toolbar, ToolbarTitle} from 'material-ui/Toolbar';
+import { Link } from 'react-router-dom'
 import './about.css'
 
 export default function About(props) {
@@ -21,6 +22,7 @@ const toolStyle = {
     <Paper style={style} zDepth={5}>
      <Toolbar style={toolStyle}>
       <ToolbarTitle text="About" />
+       <Link style={{textDecoration: "none"}} to="/"><h1 className="close-paper">&times;</h1></Link>
      </Toolbar>
     </Paper>
    </div>

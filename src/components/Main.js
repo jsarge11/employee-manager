@@ -19,10 +19,9 @@ class Main extends Component {
   componentDidMount() {
     axios.get('/user/auth').then ( res => {
       this.props.updateUser(res.data.user);
-      this.setState({ isLoaded: true })
+      setTimeout(()=> this.setState({ isLoaded: true }), 3000);
+     
     }).catch(() => {
-      this.props.changeImage()
-      this.setState({ status: "Please Log In"})
       this.setState({ isLoaded: true })
     }
     )

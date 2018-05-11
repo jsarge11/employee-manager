@@ -44,16 +44,13 @@ class Home extends React.Component {
   }).catch((error) => {
     console.log(error);
     console.log('user failed')
-    this.setState({ status: 'fail'})
-    
-  }
+    this.setState({ status: 'fail'}) 
+    }
   )
- 
-  
 }
 
 
-//takes the format returned from the database call and lets react-orgchart work with it
+//takes the format returned from the database call and lets react-org-chart work with it
 toJson = (data) => {
   let objArr = [];
   data.forEach(item => {
@@ -70,13 +67,11 @@ toJson = (data) => {
       children: [],
       reports_to: item.reports_to
     }
-  
     objArr.push(obj);
   })
-  
   return objArr;
 }
-
+//adds the children appropriately
 createNestedObject = (arr) => {
   let newArr = arr.slice();
 
@@ -92,13 +87,12 @@ createNestedObject = (arr) => {
     }
   }
   let object = newArr.find((item)=> +item.id === 1) 
-  console.log(JSON.stringify(Object))
   return object;
 }
 
 logOutStatus = () => {
   this.props.logOut()
-  this.setState({status: 'fail'})
+  this.setState({ status: "fail"})
 }
 togglePersonal = () => {
   this.setState({active: !this.state.active})
@@ -108,7 +102,7 @@ changeBackgroundImage = (value) => {
 }
 
  render() {
- 
+
   if (this.state.status !== 'fail') {
   return (
    <div id="home-wrapper">
@@ -136,7 +130,7 @@ changeBackgroundImage = (value) => {
         </div>} 
       </div> 
       : 
-      <div>
+      <div className="loading">
         <img src={loading} alt="loading"/>
       </div>
     }
