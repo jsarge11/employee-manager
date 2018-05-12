@@ -29,9 +29,7 @@ export default function ConfirmationModal(props) {
         <div className="modal-header">
           <img height="50px" src={props.company.img} alt='company-logo'/>
           <h5 className="modal-title"> Registration Form </h5>
-          <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-            <span onClick={()=>props.closeModal()} aria-hidden="true">&times;</span>
-          </button>
+            <span className="close" onClick={()=>props.closeModal()} aria-hidden="true">&times;</span>   
         </div>
         <div className="modal-body">
          <Company company={props.company}/>

@@ -1,8 +1,11 @@
 #request-modal {
  position: fixed;
- left: 25%;
+ left: 30%;
  top: 25%;
  z-index: 999;
+}
+.modal-dialog {
+ width: 800px;
 }
 .request-modal-fade {
  visibility: hidden;

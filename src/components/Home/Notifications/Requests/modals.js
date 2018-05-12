@@ -8,7 +8,7 @@ export default {
      <div className="modal-header">
       <h5 className="modal-title"> Current Employee Requests </h5>
       <button onClick={() => props.closeModal()} type="button" className="close" data-dismiss="modal" aria-label="Close">
-       <span aria-hidden="true">&times;</span>
+       <span style={{marginLeft: "500px"}} aria-hidden="true">&times;</span>
       </button>
      </div>
      <div className="modal-body">
@@ -26,7 +26,7 @@ export default {
      <div className="modal-header">
       <h5 className="modal-title"> Complete Employee Form </h5>
       <button onClick={() => props.closeModal()} type="button" className="close" data-dismiss="modal" aria-label="Close">
-       <span aria-hidden="true">&times;</span>
+       <span style={{marginLeft: "500px"}} aria-hidden="true">&times;</span>
       </button>
      </div>
      <div className="modal-body">

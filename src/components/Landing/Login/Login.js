@@ -4,7 +4,7 @@ import axios from 'axios'
 import { connect } from 'react-redux';
 import {updateUser} from '../../../ducks/reducer'
 import google from '../../../img/google_signin_hover.png'
-import linkedin from '../../../img/Sign-In-Large---Default.png'
+import windowslive from '../../../img/Sign-In-Large---Default.png'
 import './login.css'
 import Paper from 'material-ui/Paper'
 import {Toolbar, ToolbarTitle} from 'material-ui/Toolbar';
@@ -101,7 +101,7 @@ login = () => {
          </div>
          <div id="social-login">
            <a href={process.env.REACT_APP_GOOGLE_LOGIN}><img width="187px" id="sign-in-google" src={google} alt="google"/></a>
-           <a href={process.env.REACT_APP_LINKEDIN_LOGIN}><img width="185px" id="sign-in-linkedin" src={linkedin} alt="linkedin"/></a>
+           <a href={process.env.REACT_APP_WINDOWSLIVE_LOGIN}><img width="185px" id="sign-in-windowslive" src={windowslive} alt="windowslive"/></a>
          </div>
        </Paper>
   

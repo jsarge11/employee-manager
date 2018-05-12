@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom'
 import './homenav.css'
 import Notifications from '../Notifications/Notifications';
 import Nav from '../../Top-Level/Header/Nav/Nav'
+import Badge from 'material-ui/Badge'
+import RaisedButton from 'material-ui/RaisedButton'
 
 class HomeNav extends React.Component{
   handleRequests = () => {
@@ -18,9 +20,25 @@ class HomeNav extends React.Component{
       <h4>Welcome back, {this.props.user[0].first_name}!</h4>
       <h4>Company: {this.props.company_name}</h4>
       <h4>Position: {this.props.user[0].job_title}</h4>
-      {this.props.user[0].is_hr ? <button onClick={()=>this.handleRequests()}>handle requests</button> : ''}
-      <button onClick={()=>this.props.togglePersonal()}>personal</button>
-      <Link to="/"><button onClick={()=>this.props.logOutStatus()}>Logout</button></Link>
+
+      <RaisedButton label="Profile" onClick={()=>this.props.togglePersonal()}></RaisedButton>
+      
+      {this.props.user[0].is_hr ? 
+
+        this.props.requestNumber ?
+        
+          <Badge 
+            badgeContent={this.props.requestNumber}
+            primary={true}
+          >
+            <RaisedButton label="Requests" onClick={()=>this.handleRequests()}></RaisedButton> 
+          </Badge>
+        :
+       <RaisedButton label="No Requests" disabled={true} ></RaisedButton>
+      
+      : ''}
+
+      
    </div>
    <div> 
      <Nav />
@@ -31,10 +49,11 @@ class HomeNav extends React.Component{
 }
 }
 function mapStateToProps(state) {
- let { user, img } = state;
+ let { user, img, requestNumber } = state;
  return {
   user,
-  img
+  img,
+  requestNumber
  }
 }
 

@@ -23,7 +23,21 @@ input {
     cursor: pointer;
     content: url("../../../../img/google_signin_pressed.png")
 }
-.linkedin-btn:hover {
+.windowslive-btn:hover {
     cursor: pointer;
     content: url("../../../../img/Sign-In-Large---Hover.png")
+}
+.login-method {
+    display: flex;
+    justify-content: flex-end;
+}
+.checked {
+    background-color: rgba(0, 188, 212, .3);
+    height: 45px;
+    padding: 5px;
+    border-radius: 50px;
+}
+label {
+    margin-right: 50px;
+    margin-top: 5px;
 }

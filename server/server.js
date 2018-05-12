@@ -67,8 +67,8 @@ passport.deserializeUser((profile, done) => {
 })
 
 // app.get('/auth', passport.authenticate('auth0'));
-app.get('/auth/google', passport.authenticate('auth0', {connection: 'google-oauth2'}));
-app.get('/auth/linkedin', passport.authenticate('auth0', {connection: 'linkedin'}));
+app.get('/auth/google', passport.authenticate('auth0', { connection: 'google-oauth2'}));
+app.get('/auth/windowslive', passport.authenticate('auth0', { connection: 'windowslive'}));
 
 app.get('/callback/auth', passport.authenticate('auth0', {
       successRedirect: process.env.SUCCESS_REDIRECT,

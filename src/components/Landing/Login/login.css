@@ -45,10 +45,10 @@
  content: url("../../../img/google_signin_pressed.png");
  cursor: pointer;
 }
-#sign-in-linkedin:active {
+#sign-in-windowslive:active {
  content: url("../../../img/Sign-In-Large---Active.png")
 }
-#sign-in-linkedin:hover {
+#sign-in-windowslive:hover {
  cursor: pointer;
  content: url("../../../img/Sign-In-Large---Hover.png")
 }

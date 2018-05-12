@@ -8,25 +8,29 @@ import './register.css'
 import { Toolbar, ToolbarTitle } from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton'
 import Paper from 'material-ui/Paper'
+import RaisedButton from 'material-ui/RaisedButton/RaisedButton';
 
 class Register extends React.Component {
 
   state = {
     companyID: '',
     activeModal: 'register',
+    activeButton: false,
+    loginMethod: ''
   }
   updateCompanyInput(value) {
-
-    if (this.state.companyID.length === 5) {
-      document.getElementById('companyinput').style['boxShadow'] = "0 0 10px 2px green";
-      document.getElementById("alert").innerHTML = '';
-    }
-    else {
-      document.getElementById('companyinput').style['boxShadow'] = "0 0 10px 2px red";
-      document.getElementById("alert").innerHTML = "Company ID must be 6 digits long."
-    }
-
-    this.setState({ companyID: value })
+    this.setState({ companyID: value }, () => {
+      if (this.state.companyID.length === 6) {
+        document.getElementById('companyinput').style['boxShadow'] = "0 0 10px 2px green";
+        document.getElementById("alert").innerHTML = '';
+        this.setState({ activeButton: true })
+      }
+      else {
+        document.getElementById('companyinput').style['boxShadow'] = "0 0 10px 2px red";
+        document.getElementById("alert").innerHTML = "Company ID must be 6 digits long."
+        this.setState({ activeButton: false })
+      }
+    })
   }
 
   updateValue = (field, value) => {
@@ -43,17 +47,17 @@ class Register extends React.Component {
     if (counter < 12) {
       document.getElementById("alert").innerHTML = "One or more fields were left blank."
       console.log(counter);
-      return false;
+      return true;
     }
     else {
       for (let key in this.state) {
         if (!this.state[key].replace(/\s/g, '').length) {
           // string only contained whitespace (ie. spaces, tabs or line breaks
           document.getElementById("alert").innerHTML = 'Please finish filling out the form.'
-          return false;
+          return true;
         }
         else {
-          return true;
+          return false;
         }
       }
     }
@@ -94,9 +98,8 @@ class Register extends React.Component {
   }
 
   requestRegistration = () => {
-    console.log('running');
    let isNull = this.checkForNull();
-    if (!isNull) {
+    if (isNull) {
       return;
     }
     this.setState({ activeModal: 'loading' })
@@ -155,10 +158,14 @@ class Register extends React.Component {
                 <Link style={{textDecoration: "none"}} to="/"><h1 className="close-paper">&times;</h1></Link>
              </div>
               </Toolbar>
-              <h1 style={{color: "black"}} >Enter your company's ID:</h1>
-              <input id="companyinput" type="text" onChange={(e) => this.updateCompanyInput(e.target.value)} placeholder="companyid" value={this.state.companyID} /><br />
-              <div id="alert" ></div>
-              <button id="next-button" onClick={() => this.retrieveCompany()}>Next</button>
+              <h1 style={{color: "black"}} >First, find your company.</h1>
+              <input id="companyinput" type="text" onChange={(e) => this.updateCompanyInput(e.target.value)} placeholder="Enter Company ID" value={this.state.companyID} /><br />
+              <div id="alert" ></div><br/>
+              {this.state.activeButton ? 
+                <RaisedButton label="Next" onClick={() => this.retrieveCompany()}/> :
+                <RaisedButton label="Next" disabled={true}/>
+              
+            }
             </Paper>
           </div>
 
