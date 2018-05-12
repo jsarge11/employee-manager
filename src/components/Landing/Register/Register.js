@@ -150,7 +150,10 @@ class Register extends React.Component {
             <Paper style={style} zDepth={5}>
               <Toolbar style={toolStyle}>
                 <ToolbarTitle text="Register" />
-              <Link to="/login"> <FlatButton label="Login" /></Link>
+             <div className="login-nav">
+                <Link to="/login"> <FlatButton label="Login" /></Link>
+                <Link style={{textDecoration: "none"}} to="/"><h1 className="close-paper">&times;</h1></Link>
+             </div>
               </Toolbar>
               <h1 style={{color: "black"}} >Enter your company's ID:</h1>
               <input id="companyinput" type="text" onChange={(e) => this.updateCompanyInput(e.target.value)} placeholder="companyid" value={this.state.companyID} /><br />

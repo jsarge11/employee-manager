@@ -16,12 +16,14 @@ export default function Requests(props) {
   })
 
   return (
+  <div className="request-modal-fade">
     <div id="request-modal" tabIndex="1" role="dialog">
-      <div className="modal-dialog" role="document">
-        <div className="modal-content">
-          {!props.formCompleted ? modals.requests(props, requests) : modals.form(props, ManagerForm)}
+        <div className="modal-dialog" role="document">
+          <div className="modal-content">
+            {!props.formCompleted ? modals.requests(props, requests) : modals.form(props, ManagerForm)}
+          </div>
         </div>
       </div>
-    </div>
+   </div>
   );
 }

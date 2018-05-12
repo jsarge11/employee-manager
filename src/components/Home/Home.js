@@ -7,6 +7,7 @@ import OrgChart from '@latticehr/react-org-chart/src_spread/react/org-chart'
 import HomeNav from './HomeNav/HomeNav';
 import Personal from './Personal/Personal'
 import loading from '../../img/loading.svg'
+import Notifications from './Notifications/Notifications'
 import './home.css'
 
 class Home extends React.Component {
@@ -108,7 +109,10 @@ changeBackgroundImage = (value) => {
    <div id="home-wrapper">
     <div className="home">  
       {this.props.user.displayName ? 
+      
       <div> 
+        <Notifications />
+        
         <HomeNav togglePersonal={this.togglePersonal}
                  logOutStatus={this.logOutStatus}
                  company_name={this.state.company_name}

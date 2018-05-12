@@ -88,7 +88,10 @@ login = () => {
        <Paper style={style} zDepth={5}>
        <Toolbar style={toolStyle}>
          <ToolbarTitle text="Login" />
-          <Link to="/register"><FlatButton label="Register"/></Link>
+          <div className="login-nav">
+            <Link to="/register"><FlatButton label="Register"/></Link>
+            <Link style={{textDecoration: "none"}} to="/"><h1 className="close-paper">&times;</h1></Link>
+          </div>
        </Toolbar>
          <div id="email-login">
            <input onChange={(e)=>this.updateValue("email",e.target.value)} type="text" placeholder="email ..." />

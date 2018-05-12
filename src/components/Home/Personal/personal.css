@@ -1,9 +1,9 @@
-.personalWrapper {
+.personal-wrapper {
  position: fixed;
  border-radius: 5px;
  font-size: 20px;
  height: 100vh;
- width: 40vw;
+ width: 520px;
  display: flex;
  justify-content: flex-start;
  background-color: white;
@@ -14,22 +14,31 @@ padding-left: 5%;
 padding-top: 5%;
 z-index: 999;
 }
+.personal-wrapper-fade {
+ position: fixed;
+ height: 100vh;
+ width: 100vw;
+ background: rgba(0,0,0,0.75);
+}
 .open {
-
  top: 0;
  left: 0;
- transition: left 1.5s ease-in-out;
+ opacity: 1;
+ visibility: visible;
+ transition: all 1.5s ease-in-out;
 }
 .closed {
  top: 0;
  left: -100vw;
- transition: left 1.5s ease-in-out;
+ visibility: hidden;
+ opacity: 0;
+ transition: all 1.5s ease-in-out;
 }
-#personalClose {
+#personal-close {
  float: right;
  margin: 50px;
 }
-#personalClose:hover {
+#personal-close:hover {
  cursor: pointer;
 }
 .subtitle {

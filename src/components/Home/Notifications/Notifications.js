@@ -2,11 +2,12 @@ import React from 'react'
 import axios from 'axios'
 import Requests from './Requests/Requests'
 import './Requests/requests.css'
+import { connect } from 'react-redux' 
+import { getRequestNumber } from '../../../ducks/reducer'
 
-export default class Notifications extends React.Component {
+class Notifications extends React.Component {
 
  state = {
-  number_of_requests: 0,
   requests: [],
   current_request: [],
   formCompleted: false
@@ -21,18 +22,13 @@ export default class Notifications extends React.Component {
  }
  getRequests = () => {
   axios.get('/manager/notifications').then (res => {
-   this.setState({ 
-    number_of_requests: res.data.length,
+    this.props.getRequestNumber(res.data.length)
+    this.setState({ 
     requests: res.data
    })
 
   }).catch((error) => console.log(error))
  }
-
- handleRequests = () => {
-  document.getElementById("request-modal").style.display = "block";
- }
-
  finishForm = (id) => {
   this.setState({ formCompleted: true })
   axios.get('/user/request?id=' + id).then (res => {
@@ -47,16 +43,14 @@ export default class Notifications extends React.Component {
   }).catch((error)=>console.log(error))
  }
  closeModal = () => {
-  document.getElementById("request-modal").style.display = "none";
-  this.setState({ formCompleted: false })
+  document.getElementsByClassName("request-modal-fade")[0].style.opacity = 0;
+  //waiting for the .5 second transition
+  setTimeout(() => document.getElementsByClassName("request-modal-fade")[0].style.visibility = "hidden", 500);
+  setTimeout(() => this.setState({ formCompleted: false }), 500)
  }
-
  render() {
   return (
    <div> 
-    requests: {this.state.number_of_requests} <br/>
-    <button onClick={()=>this.handleRequests()}>handle requests</button>
-
     <Requests requests={this.state.requests} 
               finishForm={this.finishForm}
               deny={this.deny}
@@ -71,3 +65,4 @@ export default class Notifications extends React.Component {
   )
  }
 }
+export default connect(null, {getRequestNumber})(Notifications)

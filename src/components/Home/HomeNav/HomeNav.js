@@ -5,17 +5,22 @@ import './homenav.css'
 import Notifications from '../Notifications/Notifications';
 import Nav from '../../Top-Level/Header/Nav/Nav'
 
-function HomeNav(props) {
- console.log(props);
- return (
-  <div className="homenav">
+class HomeNav extends React.Component{
+  handleRequests = () => {
+    document.getElementsByClassName("request-modal-fade")[0].style.visibility = "visible";
+    document.getElementsByClassName("request-modal-fade")[0].style.opacity = 1;
+   }
+
+ render () {
+   return (
+     <div className="homenav">
    <div>
-      <h4>Welcome back, {props.user[0].first_name}!</h4>
-      <h4>Company: {props.company_name}</h4>
-      <h4>Position: {props.user[0].job_title}</h4>
-      {props.user[0].is_hr ? <Notifications/> : ''}
-      <button onClick={()=>props.togglePersonal()}>personal</button>
-      <Link to="/"><button onClick={()=>props.logOutStatus()}>Logout</button></Link>
+      <h4>Welcome back, {this.props.user[0].first_name}!</h4>
+      <h4>Company: {this.props.company_name}</h4>
+      <h4>Position: {this.props.user[0].job_title}</h4>
+      {this.props.user[0].is_hr ? <button onClick={()=>this.handleRequests()}>handle requests</button> : ''}
+      <button onClick={()=>this.props.togglePersonal()}>personal</button>
+      <Link to="/"><button onClick={()=>this.props.logOutStatus()}>Logout</button></Link>
    </div>
    <div> 
      <Nav />
@@ -23,6 +28,7 @@ function HomeNav(props) {
 
   </div>
  )
+}
 }
 function mapStateToProps(state) {
  let { user, img } = state;

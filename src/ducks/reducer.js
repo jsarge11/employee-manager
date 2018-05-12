@@ -5,7 +5,8 @@ let initialState = {
   user: {},
   company: {},
   img: logo,
-  backgroundClass: 'main-page'
+  backgroundClass: 'main-page',
+  requestNumber: 0
 }
 
 const UPDATE_USER = 'UPDATE_USER';
@@ -14,6 +15,7 @@ const LOGOUT_USER = 'LOGOUT_USER'
 const CHANGE_USER_INFO = 'CHANGE_USER_INFO'
 const CHANGE_IMAGE = 'CHANGE_IMAGE'
 const CHANGE_BACKGROUND = 'CHANGE_BACKGROUND'
+const GET_REQUEST_NUMBER = 'GET_REQUEST_NUMBER'
 
 export function updateUser(user) {
   return {
@@ -56,6 +58,12 @@ export function changeBackground(value) {
     payload: value
   }
 }
+export function getRequestNumber(value) {
+  return {
+    type: GET_REQUEST_NUMBER,
+    payload: value
+  }
+}
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
@@ -73,6 +81,8 @@ export default function reducer(state = initialState, action) {
       return Object.assign({}, state, {img: action.payload});
     case (CHANGE_BACKGROUND):
       return Object.assign({}, state, {backgroundClass: action.payload })
+    case (GET_REQUEST_NUMBER) :
+      return Object.assign({}, state, {requestNumber: action.payload})
     default:
       return state;
   }
