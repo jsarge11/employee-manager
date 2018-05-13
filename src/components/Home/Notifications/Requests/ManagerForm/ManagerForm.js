@@ -9,7 +9,8 @@ state = {
  salary: 0,
  is_salary: false,
  is_manager: false,
- is_hr: false
+ is_hr: false,
+ reports_to: 0
 }
 
 updateValue = (field, value) => {
@@ -18,7 +19,7 @@ updateValue = (field, value) => {
 
 registerEmployee = () => {
  let employee = {
-  employee_id: this.props.current_request[0].id,
+  registration_key: this.props.current_request[0].registration_key,
   first_name: this.props.current_request[0].first_name,
   last_name: this.props.current_request[0].last_name,
   work_phone: this.props.current_request[0].work_phone,
@@ -35,7 +36,8 @@ registerEmployee = () => {
   is_salary: this.state.is_salary,
   is_manager: this.state.is_manager,
   is_hr: this.state.is_hr, 
-  salary: this.state.salary
+  salary: this.state.salary,
+  reports_to: this.state.reports_to
  }
  axios.post('/employee/register', { employee }).then (res => {
   document.getElementById("request-modal").style.display = "none";
@@ -52,6 +54,8 @@ render() {
    Job Description<br/>
    <input onChange={(e)=>this.updateValue("salary", e.target.value)} type="text" placeholder="salary ... " value={this.state.salary}/>
    Salary Amount<br/>
+   <input onChange={(e)=>this.updateValue("reports_to", e.target.value)} type="text" placeholder="reports to ... " value={this.state.salary}/>
+   Reports to: <br/>
 
 
    Salary<br/>

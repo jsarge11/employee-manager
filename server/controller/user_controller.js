@@ -25,7 +25,7 @@ module.exports = {
     res.status(200).send (company);
    }
    else {
-    res.status(404).send("Company does not exist");
+    res.status(404).send("Company does not exist.");
    }
   }).catch((error)=>console.log(error))
  },
@@ -65,7 +65,6 @@ module.exports = {
             }
         })
         if (!newMap[0]) {
-            console.log("undefinedeh");
             res.status(401).send("Sorry, we can't find that email in our system.");
         }
     }).catch((error=>res.status(500).send("error")))

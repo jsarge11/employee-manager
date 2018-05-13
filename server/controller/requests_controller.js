@@ -58,9 +58,6 @@ module.exports = {
             res.status(200).send( table );
       }).catch((error)=>console.log(error))
  },
- approve: (req, res) => {
-
- },
  getRequest: (req, res) => {
       const db = req.app.get('db');
       console.log(req.query.id);

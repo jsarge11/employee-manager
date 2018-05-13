@@ -50,7 +50,12 @@ checkKey = () => {
       key: key
     }
     axios.post('/user/check', {newObj}).then(res => {
-      this.setState({ validKey: true })
+     if (res.data.approved) {
+       // this.setState({ validKey: true })
+     }
+     else {
+       this.writeDocumentId("alert", "Sorry, your employer hasn't approved your request yet.")
+     }
     }).catch(error => this.writeDocumentId("alert", error.response.data))
   }
 }

@@ -1,7 +1,7 @@
 #request-modal {
  position: fixed;
- left: 30%;
- top: 25%;
+ left: 25%;
+ top: 15%;
  z-index: 999;
 }
 .modal-dialog {
@@ -15,4 +15,8 @@
  width: 100vw;
  height: 100vh;
  transition: opacity .5s ease-in-out;
+}
+.modal-body {
+ height: 50vh;
+ overflow: auto;
 }

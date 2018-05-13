@@ -24,7 +24,8 @@ export default {
    <div>
     <div>
      <div className="modal-header">
-      <h5 className="modal-title"> Complete Employee Form </h5>
+      
+     <h4 style={{paddingTop: "10px"}} className="close" onClick={()=>props.updateFormCompleted(false)}>&#x003C;</h4><h5 className="modal-title"> Complete Employee Form </h5>
       <button onClick={() => props.closeModal()} type="button" className="close" data-dismiss="modal" aria-label="Close">
        <span style={{marginLeft: "500px"}} aria-hidden="true">&times;</span>
       </button>
