@@ -1,11 +1,14 @@
 const nodemailer = require('nodemailer')
-const preset = require('./mailer_preset')
+const preset = require('../mailer_preset')
+const generateKey = require('../generateKey')
 
 module.exports = {
  registerRequest: (req, res) => {
   
   let { first_name, last_name } = req.body.newObj;
-  let { newKey, company } = req.body;
+  let { company } = req.body;
+  newKey = generateKey();
+  console.log(newKey);
   let mailOptions = {
         from: '"Argos Visual" <support@argosvisual.com>',
         to: `hr@argosvisual.com`,
@@ -22,8 +25,7 @@ module.exports = {
   db.create_request(newKey, first_name, last_name, work_phone, personal_phone, work_email, personal_email, address, city, state, zip, googleid).then( user => {
       preset.transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
-                  res.status(500).send('failure');
-                  return console.log(error);
+                  return error;
             }
             console.log('Message sent: %s', info.messageId); 
       })
@@ -62,8 +64,28 @@ module.exports = {
  getRequest: (req, res) => {
       const db = req.app.get('db');
       console.log(req.query.id);
-      db.find_user_by_id(req.query.id).then (user => {
+      db.find_user_by_id([req.query.id]).then (user => {
            res.status(200).send( user );
       }).catch((error)=>console.log(error))
+ },
+ check: (req, res) => {
+       console.log(req.body);
+       const db = req.app.get('db');
+       let { email, key } = req.body.newObj;
+       db.get_request_by_key([key]).then( users => {
+            if(!users[0]) {
+                  res.status(404).send("That key was not found.")
+            }
+            else {
+                 let { work_email } = users[0];
+                 if (email === work_email) {
+                       res.status(200).send(users[0]);
+                 } 
+                 else {
+                       res.status(404).send("Key doesn't match email.")
+                 }
+            }
+       })
+       
  }
 }

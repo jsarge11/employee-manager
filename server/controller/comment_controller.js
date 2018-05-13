@@ -1,4 +1,4 @@
-const preset = require('./mailer_preset')
+const preset = require('../mailer_preset')
 const nodemailer = require('nodemailer')
 
 module.exports = {

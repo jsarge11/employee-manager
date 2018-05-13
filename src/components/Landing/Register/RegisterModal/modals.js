@@ -1,25 +1,10 @@
 import React from 'react'
 import RaisedButton from 'material-ui/RaisedButton/RaisedButton';
-import {RadioButton, RadioButtonGroup} from 'material-ui/RadioButton'
-import SvgIcon from 'material-ui/SvgIcon'
-import google from '../../../../img/google.png'
-import microsoft from '../../../../img/microsoft.png'
 
 export default {
 
  register : (props) => { 
-  const styles = {
-    radioButton: {
-      marginLeft: -10,
-    },
-  };
-  let loginValue = '';
-
-  let googleIcon = <img height="35px" src={google} alt="google" />;
-  let microsoftIcon = <img height="35px" src={microsoft} alt="microsoft"/>;
-  let googleIconChecked = <img className="checked" height="35px" src={google} alt="google" />;
-  let microsoftIconChecked = <img className="checked" height="35px" src={microsoft} alt="microsoft"/>;
-
+  
   return (
   <div id="registrationInput">
    <input type="text" maxLength="40" onChange={(e) => props.updateValue("first_name", e.target.value)} value={props.first_name} />
@@ -46,39 +31,8 @@ export default {
 
  
 
-   <p id="alert">Please fill out all forms, and choose a log-in method. </p>
-      {/* <img height="25px" src={google} alt="google" />
-      <img height="25px" src={microsoft} alt="microsoft" /> */}
-    <RadioButtonGroup onChange={(event, value)=>loginValue = value}className="login-method" name="login-type">
-      <RadioButton
-        style={styles.radioButton}
-        value="google"
-        label="Login with Google"
-        checkedIcon={googleIconChecked}
-        uncheckedIcon={googleIcon}
-      />
-      <RadioButton
-        style={styles.radioButton}
-        value="windowslive"
-        label="Login with Outlook"
-        checkedIcon={microsoftIconChecked}
-        uncheckedIcon={microsoftIcon}
-      />
-      <RadioButton
-        img={google}
-        style={styles.radioButton}
-        value="createOwn"
-        label="Create Own Password"
-      />
-    </RadioButtonGroup>
-    <RaisedButton onClick={() => {
-      if (loginValue) {
-        props.requestRegistration(loginValue)
-      }
-      else {
-        document.getElementById("alert").innerHTML = "Please choose a login method."
-      }
-    } 
+   <p id="alert">Please fill out all forms. </p>
+    <RaisedButton label="Submit Registration Request" onClick={() => {props.requestRegistration()} 
   }
   label="Submit Register Request"></RaisedButton>
     <RaisedButton onClick={() => props.closeModal()} label="Close"></RaisedButton>
@@ -97,7 +51,8 @@ export default {
   return (
    <div>
     Thank you!
-    Your request has been sent to Human Resources, they'll reach out to you once your account has been activated.
+    Your request has been sent to Human Resources, they'll reach out to you with further instructions once your account has been activated.
+
      <div className="modal-footer">
       <button onClick={() => props.closeModal()} type="button" className="btn btn-secondary" data-dismiss="modal">Close</button>
      </div>

@@ -46,12 +46,15 @@ passport.use(new Auth0Strategy ({
       let profile_id = profile.id.split('|');
       const db = app.get('db');
       db.find_user_by_googleid([profile_id[1]]).then (user => { 
+            console.log(user);
             if ( user[0] ) {
                   if (!user[0].img) {
                         user[0].img = 'https://s.gravatar.com/avatar/836deac78e49596a0c57b0dc245fdc63?s=480&r=pg&d=https%3A%2F%2Fcdn.auth0.com%2Favatars%2Fsa.png'
                   }
-                  return done(null, Object.assign({}, profile, user))
-                 
+                  return done(null, Object.assign({}, profile, user))    
+            }
+            else {
+                  console.log('User not found.')
             }
       })
       
@@ -62,7 +65,6 @@ passport.serializeUser((profile, done) => {
       return done(null, profile)
 })
 passport.deserializeUser((profile, done) => {
-
       return done(null, profile)
 })
 
@@ -89,7 +91,9 @@ app.post('/user/login', user.login);
 // registration control
 app.get('/user/request', requests.getRequest)
 app.post('/user/request', requests.registerRequest)
+app.post('/user/check', requests.check)
 app.delete('/user/request', requests.deny)
+
 
 // employee control
 app.get('/employees', emp.getEmployees)

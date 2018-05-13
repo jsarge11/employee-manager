@@ -81,29 +81,12 @@ class Register extends React.Component {
     }
   }
 
-  generateEmployeeKey = () => {
-    let newArr = []
-    var possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-
-    for (var i = 0; i < 20; i++) {
-      if (i < 5) {
-        newArr.push(possible.charAt(Math.floor(Math.random() * possible.length)));
-      }
-      else {
-        newArr.push(Math.floor(Math.random() * 10))
-      }
-    }
-
-    return newArr.join('');
-  }
-
-  requestRegistration = () => {
+  requestRegistration = (loginMethod) => {
    let isNull = this.checkForNull();
     if (isNull) {
       return;
     }
     this.setState({ activeModal: 'loading' })
-    let newKey = this.generateEmployeeKey();
     let { first_name, last_name, work_email, personal_email, work_phone, personal_phone, address, city, state, zip } = this.state;
     let newObj = {
       first_name: first_name,
@@ -118,10 +101,9 @@ class Register extends React.Component {
       zip: zip
     }
     let { company } = this.props;
-    axios.post('/user/request', { newKey, newObj, company }).then(res => {
+    axios.post('/user/request', { newObj, company }).then(res => {
       this.setState({ activeModal: 'success' })
     }).catch((error) => {
-      console.log(error);
       this.setState({ activeModal: 'error' })
     })
   }

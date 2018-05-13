@@ -9,6 +9,7 @@ import CreateCompany from './Landing/CreateCompany/CreateCompany'
 import Register from './Landing/Register/Register'
 import Failure from './Landing/Failure/Failure'
 import About from './Landing/About/About';
+import Activate from './Landing/Login/Activate/Activate'
 
 export default (
  <div className="main">
@@ -18,6 +19,7 @@ export default (
     <Route path="/login" component={Login}/>
     <Route path="/register" component={Register}/>
     <Route path="/create" component={CreateCompany}/>
+    <Route path="/activate" component={Activate}/>
     <Route path="/failure" component={Failure}/>
     <Route path="/about" component={About}/>
    </Switch>

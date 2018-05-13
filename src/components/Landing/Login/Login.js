@@ -3,13 +3,13 @@ import { Link, Redirect } from 'react-router-dom'
 import axios from 'axios'
 import { connect } from 'react-redux';
 import {updateUser} from '../../../ducks/reducer'
-import google from '../../../img/google_signin_hover.png'
-import windowslive from '../../../img/Sign-In-Large---Default.png'
 import './login.css'
 import Paper from 'material-ui/Paper'
 import {Toolbar, ToolbarTitle} from 'material-ui/Toolbar';
 import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton' 
 import bcrypt from 'bcryptjs'
+import {googleIcon, microsoftIcon} from './helper'
 
 // import axios from 'axios'
 
@@ -64,6 +64,12 @@ login = () => {
     document.getElementById("alert").innerHTML = "Invalid Email."
   }
 }
+showModal = () => {
+  document.getElementsByClassName("validation-modal")[0].style.display = "block";
+}
+hideModal = () => {
+  document.getElementsByClassName("validation-modal")[0].style.display = "none";
+}
 
  render () {
   if (this.props.user[0]) {
@@ -81,27 +87,29 @@ login = () => {
     alignItems: 'center'
   }
 
+
   return (
    <div id="landing"> 
    <div id="login-wrapper">
-   
        <Paper style={style} zDepth={5}>
        <Toolbar style={toolStyle}>
          <ToolbarTitle text="Login" />
           <div className="login-nav">
             <Link to="/register"><FlatButton label="Register"/></Link>
-            <Link style={{textDecoration: "none"}} to="/"><h1 className="close-paper">&times;</h1></Link>
+            <Link onMouseOver={()=>this.showModal()} onMouseOut={()=>this.hideModal()} to="/activate"><FlatButton label="Activate"/></Link>
+            <Paper className="validation-modal" zDepth={3}> Only activate if your employer has approved your request. </Paper>
+            <Link style={{textDecoration: "none", marginBottom: "5px"}} to="/"><h1 className="close-paper">&times;</h1></Link>
           </div>
        </Toolbar>
-         <div id="email-login">
+         <div id="login">
            <input onChange={(e)=>this.updateValue("email",e.target.value)} type="text" placeholder="email ..." />
            <input onChange={(e)=>this.updateValue("password",e.target.value)} type="password" placeholder="password ..." />
-           <button onClick={()=>this.login()}>login</button>
+           <p> Login is only possible after activation. </p>
+           <RaisedButton label="Login" style={{margin: "15px 0"}} onClick={()=>this.login()}/>
+
+            <RaisedButton href={process.env.REACT_APP_GOOGLE_LOGIN} label="Login with Google" icon={googleIcon}/>
+          <RaisedButton href={process.env.REACT_APP_WINDOWLIVE_LOGIN}label="Login with Outlook" icon={microsoftIcon}/>
            <div id="alert" ></div>
-         </div>
-         <div id="social-login">
-           <a href={process.env.REACT_APP_GOOGLE_LOGIN}><img width="187px" id="sign-in-google" src={google} alt="google"/></a>
-           <a href={process.env.REACT_APP_WINDOWSLIVE_LOGIN}><img width="185px" id="sign-in-windowslive" src={windowslive} alt="windowslive"/></a>
          </div>
        </Paper>
   

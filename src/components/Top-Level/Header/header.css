@@ -7,7 +7,7 @@
  display: flex;
  justify-content: space-between;
  align-items: center;
- z-index:990;
+ z-index:996;
  transition: all .5s linear;
 }
 .headerOpen {
@@ -19,7 +19,7 @@
  display: flex;
  justify-content: space-between;
  align-items: center;
- z-index:990;
+ z-index:996;
  transition: all .5s linear;
 }
 .logo-img {
