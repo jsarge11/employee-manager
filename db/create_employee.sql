@@ -16,5 +16,6 @@ insert into employees(
  is_manager, 
  is_hr, 
  salary,
- reports_to)
-values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18)
+ reports_to,
+ company_id)
+values($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)

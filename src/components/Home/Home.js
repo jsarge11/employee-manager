@@ -1,5 +1,5 @@
 import React from 'react'
-import { updateUser, changeImage, logOut } from '../../ducks/reducer'
+import { updateUser, changeImage, logOut, updateCompany } from '../../ducks/reducer'
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
@@ -19,7 +19,6 @@ class Home extends React.Component {
     status: 'Loading',
     isWhite: true,
     data: {},
-    company_name: ''
    }
  
  componentDidMount() {
@@ -35,7 +34,7 @@ class Home extends React.Component {
       this.setState({ 
         data : reactOrgChart,
         employeesloaded : true,
-        company_name: res.data.obj[0].company_name
+        company: company_id
       })
   
     }).catch(() => {
@@ -105,6 +104,7 @@ changeBackgroundImage = (value) => {
  render() {
 
   if (this.state.status !== 'fail') {
+  this.props.updateCompany(this.state.company);
   return (
    <div id="home-wrapper">
     <div className="home">  
@@ -115,8 +115,6 @@ changeBackgroundImage = (value) => {
         
         <HomeNav togglePersonal={this.togglePersonal}
                  logOutStatus={this.logOutStatus}
-                 company_name={this.state.company_name}
-        
         /> 
         
         <Personal active={this.state.active} 
@@ -158,4 +156,4 @@ function mapStateToProps(state) {
   user,
  }
 }
-export default connect(mapStateToProps, { updateUser, changeImage, logOut })(Home)
+export default connect(mapStateToProps, { updateUser, changeImage, logOut, updateCompany })(Home)

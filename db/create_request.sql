@@ -1,2 +1,2 @@
-insert into register_requests (registration_key, first_name, last_name, work_phone, personal_phone, work_email, personal_email, address, city, state, zip, googleid)
-values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12)
+insert into register_requests (registration_key, first_name, last_name, work_phone, personal_phone, work_email, personal_email, address, city, state, zip, googleid, company_id)
+values ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12, $13)

@@ -22,7 +22,7 @@ module.exports = {
 
   const db = req.app.get('db');
   let { work_phone, personal_phone, work_email, personal_email, address, city, state, zip, googleid } = req.body.newObj;
-  db.create_request(newKey, first_name, last_name, work_phone, personal_phone, work_email, personal_email, address, city, state, zip, googleid).then( user => {
+  db.create_request(newKey, first_name, last_name, work_phone, personal_phone, work_email, personal_email, address, city, state, zip, googleid, company[0].company_id).then( user => {
       preset.transporter.sendMail(mailOptions, (error, info) => {
             if (error) {
                   return error;
