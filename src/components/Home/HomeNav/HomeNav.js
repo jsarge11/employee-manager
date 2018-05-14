@@ -4,8 +4,15 @@ import './homenav.css'
 import Nav from '../../Top-Level/Header/Nav/Nav'
 import Badge from 'material-ui/Badge'
 import RaisedButton from 'material-ui/RaisedButton'
+import axios from 'axios'
 
 class HomeNav extends React.Component{
+
+  componentDidMount() {
+    axios.get('employee/company?=' + this.props.user[0].company_id).then (res => {
+      console.log(res);
+    })
+  }
   handleRequests = () => {
     document.getElementsByClassName("request-modal-fade")[0].style.visibility = "visible";
     document.getElementsByClassName("request-modal-fade")[0].style.opacity = 1;
@@ -16,7 +23,6 @@ class HomeNav extends React.Component{
      <div className="homenav">
    <div>
       <h4>{this.props.user[0].first_name}'s Dashboard</h4>
-      <h4>Company: {this.props.company_name}</h4>
       <h4>Position: {this.props.user[0].job_title}</h4>
 
       <RaisedButton label="Profile" onClick={()=>this.props.togglePersonal()}></RaisedButton>

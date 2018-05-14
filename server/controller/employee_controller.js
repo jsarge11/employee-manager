@@ -21,5 +21,13 @@ module.exports = {
      res.status(200).send( {employees, obj} ); 
     }).catch(error=>console.log(error)) 
    }).catch(error=>console.log(error))
+  },
+
+  getCompany: (req, res) => {
+    const db = req.app.get('db');
+    let id = '42';
+    db.get_company_name(id).then(name => {
+      res.status(200).send(name);
+    })
   }
 }

@@ -7,14 +7,12 @@ import OrgChart from '@latticehr/react-org-chart/src_spread/react/org-chart'
 import HomeNav from './HomeNav/HomeNav';
 import Personal from './Personal/Personal'
 import loading from '../../img/loading.svg'
-import { dateFormatter } from '../Landing/Login/helper'
 import Notifications from './Notifications/Notifications'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper'
 import { Toolbar, ToolbarTitle, ToolbarSeparator } from 'material-ui/Toolbar'
 import {Card, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton'
-import TextField from 'material-ui/TextField';
 
 import './home.css'
 
@@ -41,7 +39,6 @@ class Home extends React.Component {
       this.setState({announcements: res.data})
     })
     axios.get('/employees?id=' + company_id).then ( res => {
-      console.log(res.data);
       let treeJson = this.toJson(res.data.employees)
       let reactOrgChart = this.createNestedObject(treeJson);
 
@@ -138,12 +135,9 @@ post = () => {
 
   if (this.state.status !== 'fail') {
   this.props.updateCompany(this.state.company);
-  console.log(this.state.announcements);
   let announcements = this.state.announcements.map((item, i) => {
-    let newData = dateFormatter(item.date);
-    console.log(newData);
     return (
-      <div>
+      <div key={item + i}>
         <Card key={item + i} className="announcement-item">
           <CardHeader title={`${item.title}`} subtitle={`${item.name} | ${item.job_title} | ${item.date}`}/>
           <CardText>
@@ -200,8 +194,8 @@ post = () => {
         
          {this.props.user[0].is_hr || this.props.user[0].is_manager ? 
           <div> 
-          <TextField className="announcement-text" onChange={(e)=>this.updateValue("announceTitle", e.target.value)}  value={this.state.announceTitle} hintText="Announcement Title" />
-            <TextField className="announcement-text" onChange={(e)=>this.updateValue("announceBody", e.target.value)} value={this.state.announceBody} fullWidth="true" hintText="Keep your announcements sweet and short :)" />
+          <input className="announcement-text" onChange={(e)=>this.updateValue("announceTitle", e.target.value)}  value={this.state.announceTitle} placeholder="Announcement Title" />
+            <input className="announcement-text" onChange={(e)=>this.updateValue("announceBody", e.target.value)} value={this.state.announceBody} style={{width: '100%'}} placeholder="Keep your announcements sweet and short" />
             <RaisedButton onClick={()=>this.post()}label="submit"/>
           </div>
         

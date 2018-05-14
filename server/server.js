@@ -108,6 +108,7 @@ app.delete('/user/request', requests.deny)
 // employee control
 app.get('/employees', emp.getEmployees)
 app.post('/employee/register', emp.registerEmployee)
+app.get('/employee/company', emp.getCompany)
 
 // announcement control
 app.get('/company/announcements', ann.get)

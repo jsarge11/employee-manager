@@ -7,26 +7,26 @@ export default {
   
   return (
   <div id="registrationInput">
-   <input type="text" maxLength="40" onChange={(e) => props.updateValue("first_name", e.target.value)} value={props.first_name} />
+   <input type="text" name="firstname" maxLength="40" onChange={(e) => props.updateValue("first_name", e.target.value)} placeholder="First Name" value={props.first_name} autoComplete="firstname"/>
    First Name <br />
-   <input type="text" maxLength="40" onChange={(e) => props.updateValue("last_name", e.target.value)} value={props.last_name} />
+   <input type="text" name="lastname" maxLength="40" onChange={(e) => props.updateValue("last_name", e.target.value)} placeholder="Last Name" value={props.last_name} autoComplete="lastname"/>
    Last Name <br />
-   <input type="text" maxLength="10" onChange={(e) => props.updateValue("work_phone", e.target.value)} value={props.work_phone} />
+   <input type="text" name="workphone" maxLength="10" onChange={(e) => props.updateValue("work_phone", e.target.value)} placeholder="Work Phone" value={props.work_phone} autoComplete="workphone"/>
    Work Phone <br />
-   <input type="text" maxLength="10" onChange={(e) => props.updateValue("personal_phone", e.target.value)} value={props.personal_phone} />
+   <input type="text" name="personalphone" maxLength="10" onChange={(e) => props.updateValue("personal_phone", e.target.value)} placeholder="Personal Phone" value={props.personal_phone}autoComplete="personalphone" />
    Personal Phone <br />
-   <input type="text" maxLength="256" onChange={(e) => props.updateValue("work_email", e.target.value)} value={props.work_email} />
+   <input type="text" name="workemail" maxLength="256" onChange={(e) => props.updateValue("work_email", e.target.value)} placeholder="Work Email"value={props.work_email} autoComplete="workemail"/>
    Work Email <br />
-   <input type="text" maxLength="256" onChange={(e) => props.updateValue("personal_email", e.target.value)} value={props.personal_email} />
+   <input type="text" name="personalemail" maxLength="256" onChange={(e) => props.updateValue("personal_email", e.target.value)} placeholder="Personal Email"value={props.personal_email}autoComplete="personalemail" />
    Personal Email <br />
-   <input type="text" maxLength="100" onChange={(e) => props.updateValue("address", e.target.value)} value={props.address} />
+   <input type="text" name="address" maxLength="100" onChange={(e) => props.updateValue("address", e.target.value)} placeholder="Street Address"value={props.address} autoComplete="address"/>
    Address <br />
-   <input type="text" maxLength="100" onChange={(e) => props.updateValue("city", e.target.value)} value={props.city} />
+   <input type="text" name="city" maxLength="100" onChange={(e) => props.updateValue("city", e.target.value)} placeholder="City"value={props.city} autoComplete="city"/>
    City <br />
-   <input type="text" maxLength="2" onChange={(e) => props.updateValue("state", e.target.value)} value={props.state} />
+   <input type="text" name="state" maxLength="2" onChange={(e) => props.updateValue("state", e.target.value)} placeholder="State"value={props.state} autoComplete="state"/>
    State <br />
-   <input type="text" maxLength="10" onChange={(e) => props.updateValue("zip", e.target.value)} value={props.zip} />
-   Zip <br /> <br/> <br/> <br/>
+   <input type="text" name="zip" maxLength="10" onChange={(e) => props.updateValue("zip", e.target.value)} placeholder="Postal Code"value={props.zip} autoComplete="zip"/>
+   Postal Code <br /> <br/> <br/> <br/>
    <div className="modal-footer">
    <p id="alert">Please fill out all forms. </p>
     <RaisedButton label="Submit Registration Request" onClick={() => {props.requestRegistration()}}></RaisedButton>

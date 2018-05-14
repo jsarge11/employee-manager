@@ -22,12 +22,12 @@ class Register extends React.Component {
   updateCompanyInput(value) {
     this.setState({ companyID: value }, () => {
       if (this.state.companyID.length === 6) {
-        document.getElementById('companyinput').style['boxShadow'] = "0 0 10px 2px green";
+        document.getElementById('companyinput').style.borderBottom = "1px solid green";
         document.getElementById("alert").innerHTML = '';
         this.setState({ activeButton: true })
       }
       else {
-        document.getElementById('companyinput').style['boxShadow'] = "0 0 10px 2px red";
+        document.getElementById('companyinput').style.borderBottom = "1px solid red";
         document.getElementById("alert").innerHTML = "Company ID must be 6 digits long."
         this.setState({ activeButton: false })
       }

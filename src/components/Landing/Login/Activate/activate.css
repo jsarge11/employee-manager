@@ -1,3 +1,13 @@
 input {
+ border: 0;
+ border-bottom: 1px solid grey; 
+ opacity: .5;
+ transition: all .5s ease-in-out;
  margin-top: 20px;
+}
+textarea:focus, input:focus{
+ outline: none;
+ border-bottom: 1px solid blue;
+ opacity: 1;
+ transition: all .5s ease-in-out;
 }

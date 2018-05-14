@@ -35,7 +35,7 @@ background-size:
  padding: 5% 10%;
 }
 .announcement-wrapper input {
- margin-top: 0px;
+margin: 2.5% 0;
 }
 .announcement-item {
  border: 1px solid black;

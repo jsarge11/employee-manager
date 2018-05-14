@@ -5,7 +5,6 @@ import { logOut } from '../../../../ducks/reducer'
 import './nav.css'
 
 function Nav(props) {
- console.log(props);
  return (
   <div id="nav-wrapper"> 
     <div className="nav">

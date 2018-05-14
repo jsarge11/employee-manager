@@ -11,7 +11,7 @@ module.exports = {
   console.log(newKey);
   let mailOptions = {
         from: '"Argos Visual" <support@argosvisual.com>',
-        to: `hr@argosvisual.com`,
+        to: `support@argosvisual.com`,
         subject: `Registration Key`,
         text: '',
         html: `<h2>${first_name} ${last_name} has just registered for ${company[0].company_name}, if this request is authentic, use the authentication key provided to activate employee's account and supply it to him upon login.</h2><br/>
