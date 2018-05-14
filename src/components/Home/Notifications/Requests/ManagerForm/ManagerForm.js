@@ -63,6 +63,7 @@ registerEmployee = () => {
  }
  axios.post('/employee/register', { employee }).then (res => {
   document.getElementById("request-modal").style.display = "none";
+  document.getElementsByClassName("request-modal-fade")[0].style.display = "none";
   this.props.updateFormCompleted(false); //this goes against natural logic, but it's purpose is to be able to handle another request upon completion
  }).catch((error)=>console.log(error))
 }

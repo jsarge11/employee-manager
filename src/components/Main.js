@@ -17,7 +17,8 @@ class Main extends Component {
   }
 
   componentDidMount() {
-    axios.get('/user/auth').then ( res => {
+    console.log(this.props.user)
+    axios.post('/user/auth').then ( res => {
       this.props.updateUser(res.data.user);
       setTimeout(()=> this.setState({ isLoaded: true }), 3000);
      

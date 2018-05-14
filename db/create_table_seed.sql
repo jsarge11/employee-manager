@@ -61,3 +61,12 @@ create table employee_no_social(
     password text,
     employee_id references employees (employee_id)
 );
+
+create table company_announcements (
+    announcement_id serial primary key,
+    title varchar(20),
+    body varchar(500),
+    date varchar(20),
+    company_id varchar references companies (company_id),
+    posted_by integer references employees (employee_id)
+);

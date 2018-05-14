@@ -31,3 +31,9 @@ background-size:
  10px 10px,
  10px 10px;
 }
+.announcement-wrapper {
+ padding: 5% 10%;
+}
+.announcement-item {
+ border: 1px solid black;
+}

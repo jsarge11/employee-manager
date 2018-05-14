@@ -1,22 +1,32 @@
 const bcrypt = require('bcryptjs')
 
 module.exports = {
- getUser: (req, res) => {
-  if (req.user) {
-   const db = req.app.get('db');
-   let { employee_id } = req.user['0'];
-   db.get_company_image(employee_id).then( img => { 
-    let newObj = {
-        user: req.user,
-        img: img
+getUser: (req, res) => {
+    const db = req.app.get('db');
+    if (req.user) {   
+        let { employee_id } = req.user[0];
+        db.get_company_image(employee_id).then( img => { 
+        let newObj = {
+            user: req.user,
+            img: img
+        }
+        res.status(200).send(newObj);
+        })
     }
-    res.status(200).send(newObj);
-   })
-  }
-  else {
-   res.status(500).send( "Not found." );
-  }
- },
+    else {
+        if (req.body.user) {
+            if (req.body.user[0]) {
+                let { employee_id } = req.body.user[0];
+                db.get_employee_by_id(employee_id).then(newUser => {
+                    res.status(200).send(newUser);
+                })
+            }
+        }
+        else {
+            res.status(404).send();
+        }
+       }
+    },
  getCompany: (req, res) => {
   const db = req.app.get('db');
   let companyID = req.body.companyID.toUpperCase();
@@ -53,6 +63,16 @@ module.exports = {
   }
 
   
+ },
+ createLogin: (req, res) => {
+    let { email, hash } = req.body.employee;
+    const db = req.app.get('db');
+    db.get_employee_id([email]).then( id => {
+        console.log(typeof id, id)
+        db.create_employee_no_social(email, hash, +id[0].employee_id).then(()=> {
+            res.status(200).send();
+        });
+    })
  },
  login: (req, res) => {
     let { email } = req.body;

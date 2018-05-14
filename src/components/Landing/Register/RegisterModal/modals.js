@@ -32,9 +32,7 @@ export default {
  
 
    <p id="alert">Please fill out all forms. </p>
-    <RaisedButton label="Submit Registration Request" onClick={() => {props.requestRegistration()} 
-  }
-  label="Submit Register Request"></RaisedButton>
+    <RaisedButton label="Submit Registration Request" onClick={() => {props.requestRegistration()}}></RaisedButton>
     <RaisedButton onClick={() => props.closeModal()} label="Close"></RaisedButton>
    </div>
   </div>

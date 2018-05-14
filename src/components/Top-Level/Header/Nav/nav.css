@@ -1,7 +1,7 @@
 .nav {
  transition: all .6s linear;
  display: flex;
-
+ margin-right: 40px;
 }
 #nav-wrapper {
  display: flex;
@@ -21,7 +21,7 @@
 }
 .menu-item {
  margin: 10px;
- font-size: 25px;
+ font-size: 20px;
  font-weight: 200;
 }
 span.menu-item {

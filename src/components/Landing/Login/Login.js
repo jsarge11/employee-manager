@@ -25,14 +25,14 @@ class Login extends React.Component {
 }
 validateEmail = () => {
   if (!this.state.email.includes("@")) {
-    return false;
+    return true;
   } else {
     let arr = this.state.email.split("@");
     if (arr.length !== 2) {
-      return false;
+      return true;
     } else {
       if (arr[0].length === 0 || arr[1].length === 0) {
-        return false;
+        return true;
       } else {
         return true;
       }
@@ -47,8 +47,10 @@ login = () => {
       let success = bcrypt.compareSync(this.state.password, res.data.password);
       if (success) {
         let { employee_id } = res.data;
-        axios.get('/user/auth', { employee_id }).then (res => {
-
+        // adding it to an object inside of an array so that the server can properly destructure it
+        let user = [{ employee_id: employee_id }];
+        axios.post('/user/auth', { user } ).then (res => {
+          this.props.updateUser(res.data);
         })
       } 
       else {
@@ -108,7 +110,7 @@ hideModal = () => {
            <RaisedButton label="Login" style={{margin: "15px 0"}} onClick={()=>this.login()}/>
 
             <RaisedButton href={process.env.REACT_APP_GOOGLE_LOGIN} label="Login with Google" icon={googleIcon}/>
-          <RaisedButton href={process.env.REACT_APP_WINDOWLIVE_LOGIN}label="Login with Outlook" icon={microsoftIcon}/>
+          <RaisedButton href={process.env.REACT_APP_WINDOWSLIVE_LOGIN}label="Login with Outlook" icon={microsoftIcon}/>
            <div id="alert" ></div>
          </div>
        </Paper>

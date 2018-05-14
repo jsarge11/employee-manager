@@ -5,6 +5,7 @@ import { Toolbar, ToolbarTitle } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import {googleIcon, microsoftIcon} from '../helper'
+import bcrypt from 'bcryptjs'
 import axios from 'axios'
 
 
@@ -31,7 +32,16 @@ login = () => {
   }
   else {
     if (this.state.password === this.state.passwordConfirm) {
-
+      let hash = bcrypt.hash(this.state.password, 10, (err,hash) => {
+        let employee = {
+          hash: hash,
+          email: this.state.email
+        }
+        axios.post('/user/create', {employee}).then (res => {
+          console.log(res);
+        })
+        
+      })
     }
     else {
       this.writeDocumentId("alert", "Passwords do not match.");
@@ -51,7 +61,7 @@ checkKey = () => {
     }
     axios.post('/user/check', {newObj}).then(res => {
      if (res.data.approved) {
-       // this.setState({ validKey: true })
+       this.setState({ validKey: true })
      }
      else {
        this.writeDocumentId("alert", "Sorry, your employer hasn't approved your request yet.")
@@ -96,7 +106,7 @@ render() {
           {!this.state.validKey ? <RaisedButton onClick={()=>this.checkKey()}label="Check Key"/> : ''}
           <div id="alert"></div>
           <RaisedButton disabled={!this.state.validKey} label="Create Password and Activate" style={{margin: "15px 0"}} onClick={()=>this.login()}/>
-          <RaisedButton disabled={!this.state.validKey} href={process.env.REACT_APP_GOOGLE_LOGIN} label="Activate with Google" icon={googleIcon}/>
+          <RaisedButton disabled={!this.state.validKey} href={process.env.REACT_APP_GOOGLE_LOGIN + "?key=" + this.state.key} label="Activate with Google" icon={googleIcon}/>
           <RaisedButton disabled={!this.state.validKey} href={process.env.REACT_APP_WINDOWLIVE_LOGIN}label="Activate with Outlook" icon={microsoftIcon}/>
 
           {this.state.validKey ? <h2 style={{color: "green"}}>Key Validated!</h2> : ''}

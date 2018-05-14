@@ -66,7 +66,6 @@ module.exports = {
       }).catch((error)=>console.log(error))
  },
  check: (req, res) => {
-       console.log(req.body);
        const db = req.app.get('db');
        let { email, key } = req.body.newObj;
        db.get_request_by_key([key]).then( users => {

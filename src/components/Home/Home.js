@@ -7,25 +7,40 @@ import OrgChart from '@latticehr/react-org-chart/src_spread/react/org-chart'
 import HomeNav from './HomeNav/HomeNav';
 import Personal from './Personal/Personal'
 import loading from '../../img/loading.svg'
+import { dateFormatter } from '../Landing/Login/helper'
 import Notifications from './Notifications/Notifications'
+import {Tabs, Tab} from 'material-ui/Tabs';
+import Paper from 'material-ui/Paper'
+import { Toolbar, ToolbarTitle, ToolbarSeparator } from 'material-ui/Toolbar'
+import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
+import FlatButton from 'material-ui/FlatButton'
+import RaisedButton from 'material-ui/RaisedButton'
+import TextField from 'material-ui/TextField';
+
 import './home.css'
 
 class Home extends React.Component {
 
   state = {
     orgchart: [],
+    announcements: [],
     active: false,
     employeesloaded: false,
     status: 'Loading',
     isWhite: true,
     data: {},
+    announceTitle: '',
+    announceBody: ''
    }
  
  componentDidMount() {
-  axios.get('/user/auth').then ( res => {
+  let { user } = this.props;
+  axios.post('/user/auth', { user }).then ( res => {
     this.props.updateUser(res.data.user);
     let { company_id } = res.data.user[0];
-
+    axios.get('/company/announcements?id=' + company_id).then (res => {
+      this.setState({announcements: res.data})
+    })
     axios.get('/employees?id=' + company_id).then ( res => {
       console.log(res.data);
       let treeJson = this.toJson(res.data.employees)
@@ -37,10 +52,7 @@ class Home extends React.Component {
         company: company_id
       })
   
-    }).catch(() => {
-      alert('Something went wrong, we apologize');
-      this.setState({ status: 'fail' })
-    })
+    }).catch(error => {console.log(error)})
   }).catch((error) => {
     console.log(error);
     console.log('user failed')
@@ -49,7 +61,9 @@ class Home extends React.Component {
   )
 }
 
-
+updateValue = (field, value) => {
+  this.setState({ [`${field}`]: value });
+}
 //takes the format returned from the database call and lets react-org-chart work with it
 toJson = (data) => {
   let objArr = [];
@@ -100,15 +114,62 @@ togglePersonal = () => {
 changeBackgroundImage = (value) => { 
   this.setState({isWhite: value})
 }
+post = () => {
 
+  let { announceTitle, announceBody } = this.state;
+  let { employee_id, job_title, first_name, last_name, company_id } = this.props.user[0];
+
+  let postInfo = {
+    title: announceTitle,
+    body: announceBody,
+    name: first_name + ' ' + last_name,
+    job_title: job_title,
+    date: new Date(),
+    company_id: company_id,
+    id: employee_id,
+  }
+  axios.post('/company/post', postInfo).then (res => {
+    this.setState({ announcements: res.data,
+                    announceTitle: '',
+                    announceBody: ''
+              })
+  }).catch(error=>console.log(error))
+}
  render() {
+
+  const styles = {
+    headline: {
+      fontSize: 24,
+      paddingTop: 16,
+      marginBottom: 12,
+      fontWeight: 400,
+    },
+  };
+
+  
 
   if (this.state.status !== 'fail') {
   this.props.updateCompany(this.state.company);
+  console.log(this.state.announcements);
+  let announcements = this.state.announcements.map((item, i) => {
+    let newData = dateFormatter(item.date);
+    console.log(newData);
+    return (
+      <div>
+        {/* <Card key={item + i} className="announcement-item">
+          <CardHeader title={`${item.title}`} subtitle={`${item.name} | ${item.job_title} | ${item.date}`}/>
+          <CardText>
+          {item.body}
+          </CardText>
+        </Card>
+        <br/> */}
+      </div>
+    )
+  })
   return (
    <div id="home-wrapper">
     <div className="home">  
-      {this.props.user.displayName ? 
+      {this.props.user[0] ? 
       
       <div> 
         <Notifications />
@@ -123,9 +184,34 @@ changeBackgroundImage = (value) => {
         />
         <br/>
         {this.state.employeesloaded ? 
-        <div className = "tree">
-          <OrgChart tree={this.state.data} nodeHeight={180}/>
+          <Tabs>
+          <Tab label="Org Chart" >
+          <div className = "tree">
+            <OrgChart tree={this.state.data} nodeHeight={180}/>
+          </div>
+          </Tab>
+          <Tab label="Company Announcements" >
+          <Paper zDepth={5}>
+      <Toolbar>
+        <ToolbarTitle text="Company Announcements" />
+          <ToolbarSeparator style={{height: "100%"}} />
+          {/* <ToolbarTitle text="New Hires" /> */}
+      </Toolbar>
+        <div className="announcement-wrapper">
+          <div className="company-announcements"> 
+            {announcements[0] ? announcements : <div><h2>No announcements posted, check back soon.</h2><br/><br/></div>}
+          </div>
+        
+          <TextField onChange={(e)=>this.updateValue("announceTitle", e.target.value)}  value={this.state.announceTitle} hintText="Announcement Title" />
+          <TextField onChange={(e)=>this.updateValue("announceBody", e.target.value)} value={this.state.announceBody} fullWidth="true" hintText="Keep your announcements sweet and short :)" />
+          <RaisedButton onClick={()=>this.post()}label="submit"/>
+          
+          <br/>
         </div>
+      </Paper>
+          </Tab>
+          </Tabs>
+        
           : 
         <div className="loading">
           <img src={loading} alt="loading"/>
