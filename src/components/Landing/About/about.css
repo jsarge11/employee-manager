@@ -14,3 +14,9 @@
  color: lightgrey;
  text-decoration: none;
 }
+.about-content p {
+ font-size: 18px;
+}
+.about-content {
+ padding: 5%;
+}

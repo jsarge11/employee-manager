@@ -12,8 +12,7 @@ import Notifications from './Notifications/Notifications'
 import {Tabs, Tab} from 'material-ui/Tabs';
 import Paper from 'material-ui/Paper'
 import { Toolbar, ToolbarTitle, ToolbarSeparator } from 'material-ui/Toolbar'
-import {Card, CardActions, CardHeader, CardText} from 'material-ui/Card';
-import FlatButton from 'material-ui/FlatButton'
+import {Card, CardHeader, CardText} from 'material-ui/Card';
 import RaisedButton from 'material-ui/RaisedButton'
 import TextField from 'material-ui/TextField';
 
@@ -137,17 +136,6 @@ post = () => {
 }
  render() {
 
-  const styles = {
-    headline: {
-      fontSize: 24,
-      paddingTop: 16,
-      marginBottom: 12,
-      fontWeight: 400,
-    },
-  };
-
-  
-
   if (this.state.status !== 'fail') {
   this.props.updateCompany(this.state.company);
   console.log(this.state.announcements);
@@ -156,16 +144,25 @@ post = () => {
     console.log(newData);
     return (
       <div>
-        {/* <Card key={item + i} className="announcement-item">
+        <Card key={item + i} className="announcement-item">
           <CardHeader title={`${item.title}`} subtitle={`${item.name} | ${item.job_title} | ${item.date}`}/>
           <CardText>
           {item.body}
           </CardText>
         </Card>
-        <br/> */}
+        <br/>
       </div>
     )
   })
+
+  let tabStyles = {
+    backgroundColor: 'white',
+    borderBottom: '.5px solid black',
+    color: 'black',
+  }
+  let inkBar = {
+    backgroundColor: 'blue'
+  }
   return (
    <div id="home-wrapper">
     <div className="home">  
@@ -182,15 +179,14 @@ post = () => {
                   togglePersonal={this.togglePersonal}
                   user={this.props.user}
         />
-        <br/>
         {this.state.employeesloaded ? 
-          <Tabs>
-          <Tab label="Org Chart" >
+          <Tabs inkBarStyle={inkBar}>
+          <Tab style={tabStyles} label="Org Chart" >
           <div className = "tree">
             <OrgChart tree={this.state.data} nodeHeight={180}/>
           </div>
           </Tab>
-          <Tab label="Company Announcements" >
+          <Tab style={tabStyles}label="Company Announcements" >
           <Paper zDepth={5}>
       <Toolbar>
         <ToolbarTitle text="Company Announcements" />
@@ -202,9 +198,16 @@ post = () => {
             {announcements[0] ? announcements : <div><h2>No announcements posted, check back soon.</h2><br/><br/></div>}
           </div>
         
-          <TextField onChange={(e)=>this.updateValue("announceTitle", e.target.value)}  value={this.state.announceTitle} hintText="Announcement Title" />
-          <TextField onChange={(e)=>this.updateValue("announceBody", e.target.value)} value={this.state.announceBody} fullWidth="true" hintText="Keep your announcements sweet and short :)" />
-          <RaisedButton onClick={()=>this.post()}label="submit"/>
+         {this.props.user[0].is_hr || this.props.user[0].is_manager ? 
+          <div> 
+          <TextField className="announcement-text" onChange={(e)=>this.updateValue("announceTitle", e.target.value)}  value={this.state.announceTitle} hintText="Announcement Title" />
+            <TextField className="announcement-text" onChange={(e)=>this.updateValue("announceBody", e.target.value)} value={this.state.announceBody} fullWidth="true" hintText="Keep your announcements sweet and short :)" />
+            <RaisedButton onClick={()=>this.post()}label="submit"/>
+          </div>
+        
+          : ''
+        
+        }
           
           <br/>
         </div>

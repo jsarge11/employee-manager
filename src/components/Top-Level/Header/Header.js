@@ -9,7 +9,6 @@ class Header extends React.Component {
  state = {
   scrollHeight: 0,
   headerActive: false,
-  menuOpen: false
  }
  componentDidMount() {
   window.addEventListener('scroll', this.scroll);
@@ -23,18 +22,11 @@ scroll = (e) => {
 
   if (scrollTop > 300) {
    this.setState({headerActive: true})
-  //  if (this.state.menuOpen) this.toggleMenu();
   }
   else {
    this.setState({headerActive: false})
   }
 }
-// toggleMenu = () => {
-// if (this.state.scrollHeight > 300 && !this.state.menuOpen) {
-//   window.scroll(0,0); 
-// }
-// this.setState({ menuOpen: !this.state.menuOpen})
-// }
  render() {
  
   return (

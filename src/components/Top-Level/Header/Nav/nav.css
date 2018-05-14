@@ -2,19 +2,13 @@
  transition: all .6s linear;
  display: flex;
  margin-right: 40px;
+ z-index: 999;
 }
 #nav-wrapper {
  display: flex;
  flex-direction: column;
  text-align: right;
 }
-/* .navOpen {
- opacity: 1;
- position: absolute;
- top: 35px;
- right: 0vh;
- transition: all .6s linear;
-} */
 .nav-icon {
  padding-right: 70px;
  font-size: 50px;

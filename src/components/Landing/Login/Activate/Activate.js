@@ -5,8 +5,9 @@ import { Toolbar, ToolbarTitle } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import {googleIcon, microsoftIcon} from '../helper'
-import bcrypt from 'bcryptjs'
+// import bcrypt from 'bcryptjs'
 import axios from 'axios'
+import './activate.css'
 
 
 export default class Activate extends Component {
@@ -32,16 +33,19 @@ login = () => {
   }
   else {
     if (this.state.password === this.state.passwordConfirm) {
-      let hash = bcrypt.hash(this.state.password, 10, (err,hash) => {
-        let employee = {
-          hash: hash,
-          email: this.state.email
-        }
-        axios.post('/user/create', {employee}).then (res => {
-          console.log(res);
-        })
-        
-      })
+
+      /*------------------------------------------------------------Not working yet--------------------------------------------------------------*/
+      // let hash = bcrypt.hash(this.state.password, 10, (err,hash) => {
+      //   let employee = {
+      //     hash: hash,
+      //     email: this.state.email
+      //   }
+      //   axios.post('/user/create', {employee}).then (res => {
+      //     console.log(res);
+      //   })  
+      // })
+      this.writeDocumentId("alert", "Sorry, please login with another ,method.");
+
     }
     else {
       this.writeDocumentId("alert", "Passwords do not match.");
@@ -73,23 +77,23 @@ checkKey = () => {
 render() {
 
  const style = {
-  height: 550,
   width: 600,
   margin: 20,
   textAlign: 'center',
   display: 'inline-block',
-  zIndex: 995,
+  zIndex: 997,
  };
  const toolStyle = {
-  alignItems: 'center'
+  alignItems: 'center',
+  zIndex: 999,
  }
 
  return (
   <div id="landing"> 
   <div id="login-wrapper">
   
-      <Paper style={style} zDepth={5}>
-      <Toolbar style={toolStyle}>
+      <Paper className="about-paper" style={style} zDepth={5}>
+      <Toolbar className="tool-bar" style={toolStyle}>
         <ToolbarTitle text="Activate" />
          <div className="login-nav">
            <Link to="/login"><FlatButton label="Login"/></Link>

@@ -16,7 +16,8 @@ class Register extends React.Component {
     companyID: '',
     activeModal: 'register',
     activeButton: false,
-    loginMethod: ''
+    loginMethod: '',
+    status: 'register'
   }
   updateCompanyInput(value) {
     this.setState({ companyID: value }, () => {
@@ -65,12 +66,15 @@ class Register extends React.Component {
 
   retrieveCompany = () => {
     if (this.state.companyID.length === 6) {
+      this.setState({ status: 'loading'})
       let { companyID } = this.state;
 
       axios.post('user/getcompany', { companyID }).then(res => {
+        this.setState({status: 'register'})
         this.props.updateCompany(res.data)
         document.getElementsByClassName("modal")[0].style.display = "block";
       }).catch(error => {
+        this.setState({status: 'register'})
         if (+error.response.status === 404) {
           document.getElementById("alert").innerHTML = error.response.data;
         }
@@ -129,6 +133,7 @@ class Register extends React.Component {
     }
     return (
       <div id="landing">
+       {this.state.status === 'loading' ? <div className="grey"></div> : ''}
         {!this.props.company[0]
           ?
           <div id="login-wrapper">
@@ -140,18 +145,15 @@ class Register extends React.Component {
                 <Link style={{textDecoration: "none"}} to="/"><h1 className="close-paper">&times;</h1></Link>
              </div>
               </Toolbar>
-              <h1 style={{color: "black"}} >First, find your company.</h1>
-              <input id="companyinput" type="text" onChange={(e) => this.updateCompanyInput(e.target.value)} placeholder="Enter Company ID" value={this.state.companyID} /><br />
+              <h1 style={{color: "black"}} >Enter Company ID:</h1>
+              <input id="companyinput" type="text" onChange={(e) => this.updateCompanyInput(e.target.value)} placeholder="Company ID" value={this.state.companyID} /><br />
+              {this.state.status === 'loading' ? <div className="loader"></div> : ''}
               <div id="alert" ></div><br/>
               {this.state.activeButton ? 
                 <RaisedButton label="Next" onClick={() => this.retrieveCompany()}/> :
-                <RaisedButton label="Next" disabled={true}/>
-              
-            }
+                <RaisedButton label="Next" disabled={true}/>}
             </Paper>
           </div>
-
-
           :
           <div>
             <RegisterModal company={this.props.company[0]}

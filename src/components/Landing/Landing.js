@@ -30,12 +30,12 @@ class Landing extends React.Component {
         </div>
         <div id="landing-section-four">
           <ul className="section-description">
-            <li> 	&#187; <em>Simple Setup.</em> We take care of everything, all we need is a list of employees </li>
-            <li> 	&#187; <em>Scalable.</em> Companies of <b>all</b> sizes can effectively manage and interact with data.</li>
-            <li>  &#187; <em>Roles</em> From CEO to new-hire, this tool provides appropriate users with the appropriate information.</li>
+            <li><em className="section-three-header-text">Simple Setup.</em><br/><blockquote>No hassle, or lengthy setups, just provide us a list of your employees and we'll do the rest.</blockquote> </li>
+            <li><em className="section-three-header-text">Scalable.</em><br/><blockquote>Companies of <b>all</b> sizes can effectively manage and interact with data.</blockquote></li>
+            <li><em className="section-three-header-text">Roles</em><br/><blockquote>From CEO to new-hire, this tool provides appropriate users with the appropriate information.</blockquote></li>
           </ul>
           <div className="section-description">
-            <video id="section-video" nocontrols="true" muted loop>
+            <video id="section-video" nocontrols="true" muted autoPlay loop>
               <source src={video} type="video/mp4" />
               Your browser does not support the video tag.
              </video>

@@ -25,7 +25,7 @@ export default function ConfirmationModal(props) {
  return (
   <div className="modal" tabIndex="1" role="dialog">
     <div className="modal-dialog" role="document">
-      <div className="modal-content">
+      <div id="register-modal-content" className="modal-content">
         <div className="modal-header">
           <img height="50px" src={props.company.img} alt='company-logo'/>
           <h5 className="modal-title"> Registration Form </h5>
@@ -33,7 +33,6 @@ export default function ConfirmationModal(props) {
         </div>
         <div className="modal-body">
          <Company company={props.company}/>
-         <hr/>
           {display}
         </div>
       </div>

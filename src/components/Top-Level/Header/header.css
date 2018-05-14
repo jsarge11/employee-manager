@@ -28,8 +28,13 @@
 a {
  color: white;
 }
+@media(min-width: 200px) {
+ .logo-img {
+  height: 50px;
+ }
+}
 @media(min-width: 800px) {
  .logo-img {
-  height: 120px;
+  height: 80px;
  }
 }

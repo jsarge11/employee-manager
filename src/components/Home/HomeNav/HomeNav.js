@@ -1,8 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import { Link } from 'react-router-dom'
 import './homenav.css'
-import Notifications from '../Notifications/Notifications';
 import Nav from '../../Top-Level/Header/Nav/Nav'
 import Badge from 'material-ui/Badge'
 import RaisedButton from 'material-ui/RaisedButton'
@@ -17,7 +15,7 @@ class HomeNav extends React.Component{
    return (
      <div className="homenav">
    <div>
-      <h4>Welcome back, {this.props.user[0].first_name}!</h4>
+      <h4>{this.props.user[0].first_name}'s Dashboard</h4>
       <h4>Company: {this.props.company_name}</h4>
       <h4>Position: {this.props.user[0].job_title}</h4>
 

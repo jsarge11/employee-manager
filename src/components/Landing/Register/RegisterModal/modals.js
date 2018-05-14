@@ -26,11 +26,8 @@ export default {
    <input type="text" maxLength="2" onChange={(e) => props.updateValue("state", e.target.value)} value={props.state} />
    State <br />
    <input type="text" maxLength="10" onChange={(e) => props.updateValue("zip", e.target.value)} value={props.zip} />
-   Zip <br />
+   Zip <br /> <br/> <br/> <br/>
    <div className="modal-footer">
-
- 
-
    <p id="alert">Please fill out all forms. </p>
     <RaisedButton label="Submit Registration Request" onClick={() => {props.requestRegistration()}}></RaisedButton>
     <RaisedButton onClick={() => props.closeModal()} label="Close"></RaisedButton>

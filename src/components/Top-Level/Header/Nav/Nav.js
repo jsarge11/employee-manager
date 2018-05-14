@@ -1,18 +1,17 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { Link } from 'react-router-dom'
+import { Link, withRouter } from 'react-router-dom'
 import { logOut } from '../../../../ducks/reducer'
 import './nav.css'
 
 function Nav(props) {
-
+ console.log(props);
  return (
   <div id="nav-wrapper"> 
-    {/* <div className="nav-icon" onClick={()=>props.toggleMenu()}>&#9776;</div> */}
     <div className="nav">
       <Link className="menu-item" to="/about">About Us</Link>
-    {/* {props.pathname.location === "/home" ? <Link className="menu-item" to="/">Home</Link> : <div></div>} */}
-    {props.user[0] ? <Link className="menu-item" to="/home">Directory</Link> : <div></div>}
+    {props.location.pathname === "/home" ? <Link className="menu-item" to="/">Home</Link> : <div></div>}
+    {props.user[0] ? <Link className="menu-item" to="/home">Dashboard</Link> : <div></div>}
     {!props.user[0] ? <Link className="menu-item" to="/register">Register</Link> : <div></div>}
     {/* <Link className="menu-item" to="/company">Company</Link> */}
     {props.user[0] ?  <Link className="menu-item" to="/" onClick={()=>props.logOut({})}>Logout</Link> : <Link className="menu-item" to="/login">Login</Link>}
@@ -27,4 +26,4 @@ function mapStateToProps(state) {
   user
  }
 }
-export default connect(mapStateToProps, { logOut })(Nav)
+export default withRouter(connect(mapStateToProps, { logOut })(Nav))
