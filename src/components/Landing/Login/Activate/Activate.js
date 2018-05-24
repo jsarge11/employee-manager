@@ -5,7 +5,7 @@ import { Toolbar, ToolbarTitle } from 'material-ui/Toolbar'
 import FlatButton from 'material-ui/FlatButton'
 import RaisedButton from 'material-ui/RaisedButton'
 import {googleIcon, microsoftIcon} from '../helper'
-// import bcrypt from 'bcryptjs'
+import bcrypt from 'bcryptjs'
 import axios from 'axios'
 import './activate.css'
 
@@ -35,16 +35,15 @@ login = () => {
     if (this.state.password === this.state.passwordConfirm) {
 
       /*------------------------------------------------------------Not working yet--------------------------------------------------------------*/
-      // let hash = bcrypt.hash(this.state.password, 10, (err,hash) => {
-      //   let employee = {
-      //     hash: hash,
-      //     email: this.state.email
-      //   }
-      //   axios.post('/user/create', {employee}).then (res => {
-      //     console.log(res);
-      //   })  
-      // })
-      this.writeDocumentId("alert", "Sorry, please login with another ,method.");
+      let hash = bcrypt.hash(this.state.password, 10, (err,hash) => {
+        let employee = {
+          hash: hash,
+          email: this.state.email
+        }
+        axios.post('/user/create', { employee }).then (res => {
+          console.log(res);
+        })  
+      })
 
     }
     else {

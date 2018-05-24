@@ -15,53 +15,86 @@ class Register extends React.Component {
   state = {
     companyID: '',
     activeModal: 'register',
-    activeButton: false,
+    findCompanyButton: false,
+    work_phone_dupe: false,
+    personal_phone_dupe: false,
+    work_email_dupe: false,
+    personal_email_dupe: false,
+    emptyFields: true,
     loginMethod: '',
-    status: 'register'
+    status: 'register',
+    employees: []
   }
-  updateCompanyInput(value) {
+  updateCompanyInput = (value) => {
     this.setState({ companyID: value }, () => {
       if (this.state.companyID.length === 6) {
-        document.getElementById('companyinput').style.borderBottom = "1px solid green";
+        document.getElementById('companyinput').classList.remove('input-error');
         document.getElementById("alert").innerHTML = '';
-        this.setState({ activeButton: true })
+        this.setState({ findCompanyButton: true })
+      }
+      else if (this.state.companyID.length === 0) {
+        document.getElementById('companyinput').classList.remove('input-error');
+        document.getElementById("alert").innerHTML = '';
       }
       else {
-        document.getElementById('companyinput').style.borderBottom = "1px solid red";
+        document.getElementById('companyinput').classList.add('input-error');
         document.getElementById("alert").innerHTML = "Company ID must be 6 digits long."
-        this.setState({ activeButton: false })
+        this.setState({ findCompanyButton: false })
       }
+      
     })
   }
 
+  checkForDuplicates = (field, arr) => {
+  
+    if (arr.includes(this.state[`${field}`])) {
+      console.log([`${field}_dupe`]);
+      this.setState({ [`${field}_dupe`] : true })
+    }
+    else {
+      this.setState({ [`${field}_dupe`] : false })
+    }
+  }
+
   updateValue = (field, value) => {
-    this.setState({ [`${field}`]: value });
+    this.setState({ [`${field}`]: value }, () => {
+      this.checkForNull();
+      switch (field) {
+        case "work_phone":
+          this.checkForDuplicates(field, this.state.workPhones);
+          break;
+        case "personal_phone":
+        this.checkForDuplicates(field, this.state.personalPhones);
+          break;
+        case "work_email":
+          this.checkForDuplicates(field, this.state.workEmails);
+          break;
+        case "personal_email":
+          this.checkForDuplicates(field, this.state.personalEmails);
+          break;
+        default:
+          break;
+      }
+    }); 
   }
 
   checkForNull = () => {
-    let counter = 0;
-    for (let key in this.state) {
-      if (key) {
-        counter++;
-      }
-    }
-    if (counter < 12) {
-      document.getElementById("alert").innerHTML = "One or more fields were left blank."
-      console.log(counter);
-      return true;
-    }
-    else {
-      for (let key in this.state) {
-        if (!this.state[key].replace(/\s/g, '').length) {
-          // string only contained whitespace (ie. spaces, tabs or line breaks
-          document.getElementById("alert").innerHTML = 'Please finish filling out the form.'
-          return true;
+    if (this.state.first_name && 
+        this.state.last_name &&
+        this.state.work_phone &&
+        this.state.personal_phone &&
+        this.state.work_email &&
+        this.state.personal_email &&
+        this.state.address &&
+        this.state.city &&
+        this.state.state &&
+        this.state.zip) {
+          console.log('setting')
+          this.setState({ emptyFields : false })
         }
         else {
-          return false;
+          this.setState({ emptyFields : true })
         }
-      }
-    }
   }
 
   retrieveCompany = () => {
@@ -71,7 +104,27 @@ class Register extends React.Component {
 
       axios.post('user/getcompany', { companyID }).then(res => {
         this.setState({status: 'register'})
-        this.props.updateCompany(res.data)
+        this.props.updateCompany(res.data.company)
+
+        let workPhones = res.data.employees.map(item => item.work_phone);
+        let personalPhones = res.data.employees.map(item => item.personal_phone);
+        let workEmails = res.data.employees.map(item => item.work_email.toLowerCase());
+        let personalEmails = res.data.employees.map(item => item.personal_email ? item.personal_email.toLowerCase() : item.personal_email);
+
+        axios.get('/user/allRequests').then (res => {
+          let reqWorkPhones = res.data.map(item => item.work_phone);
+          let reqPersonalPhones = res.data.map(item => item.personal_phone);
+          let reqWorkEmails = res.data.map(item => item.work_email);
+          let reqPersonalEmails = res.data.map(item => item.personal_email);
+
+          this.setState({ 
+            workPhones: workPhones.concat(reqWorkPhones),
+            personalPhones: personalPhones.concat(reqPersonalPhones),
+            workEmails: workEmails.concat(reqWorkEmails),
+            personalEmails: personalEmails.concat(reqPersonalEmails)
+          })
+      })
+
         document.getElementsByClassName("modal")[0].style.display = "block";
       }).catch(error => {
         this.setState({status: 'register'})
@@ -104,11 +157,16 @@ class Register extends React.Component {
       state: state,
       zip: zip
     }
-    let { company } = this.props;
-    axios.post('/user/request', { newObj, company }).then(res => {
-      this.setState({ activeModal: 'success' })
-    }).catch((error) => {
-      this.setState({ activeModal: 'error' })
+    axios.post('/user/noduplicate', { newObj }).then (res => {
+      let { company } = this.props;
+      axios.post('/user/request', { newObj, company }).then(res => {
+        this.setState({ activeModal: 'success' })
+      }).catch((error) => {
+        this.setState({ activeModal: 'error' })
+      })
+
+    }).catch(error => {
+      document.getElementById("alert").innerHTML = error.response.data;
     })
   }
 
@@ -119,6 +177,8 @@ class Register extends React.Component {
     this.setState({ companyID: '' })
     this.setState({ activeModal: 'register' })
   }
+
+
 
   render() {
     const style = {
@@ -131,6 +191,7 @@ class Register extends React.Component {
     const toolStyle = {
       alignItems: 'center'
     }
+
     return (
       <div id="landing">
        {this.state.status === 'loading' ? <div className="grey"></div> : ''}
@@ -149,19 +210,25 @@ class Register extends React.Component {
               <input id="companyinput" type="text" onChange={(e) => this.updateCompanyInput(e.target.value)} placeholder="Company ID" value={this.state.companyID} /><br />
               {this.state.status === 'loading' ? <div className="loader"></div> : ''}
               <div id="alert" ></div><br/>
-              {this.state.activeButton ? 
+              {this.state.findCompanyButton ? 
                 <RaisedButton label="Next" onClick={() => this.retrieveCompany()}/> :
                 <RaisedButton label="Next" disabled={true}/>}
             </Paper>
           </div>
           :
           <div>
-            <RegisterModal company={this.props.company[0]}
+            <RegisterModal 
+              company={this.props.company[0]}
               closeModal={this.closeModal}
               updateValue={this.updateValue}
               requestRegistration={this.requestRegistration}
               activeModal={this.state.activeModal}
-            />
+              work_phone_dupe={this.state.work_phone_dupe}
+              personal_phone_dupe={this.state.personal_phone_dupe}
+              work_email_dupe={this.state.work_email_dupe}
+              personal_email_dupe={this.state.personal_email_dupe}
+              emptyFields={this.state.emptyFields}
+              />
           </div>
         }
       </div>

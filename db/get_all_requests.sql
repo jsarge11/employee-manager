@@ -1,0 +1,1 @@
+select work_email, personal_email, work_phone, personal_phone from register_requests;

@@ -32,7 +32,13 @@ getUser: (req, res) => {
   let companyID = req.body.companyID.toUpperCase();
   db.get_company([companyID]).then ( company => {
    if (company[0]) {
-    res.status(200).send (company);
+    db.get_all_employees().then(employees => {
+        let employeesAndCompany = {
+            employees: employees,
+            company: company
+        }
+        res.status(200).send ( employeesAndCompany );
+    })
    }
    else {
     res.status(404).send("Company does not exist.");
@@ -88,5 +94,9 @@ getUser: (req, res) => {
             res.status(401).send("Sorry, we can't find that email in our system.");
         }
     }).catch((error=>res.status(500).send("error")))
+ },
+ checkDuplicates: (req, res) => {
+    const db = req.app.get('db');
+    
  }
 }

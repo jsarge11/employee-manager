@@ -4,6 +4,8 @@ import './registermodal.css'
 import modal from './modals'
 
 export default function ConfirmationModal(props) {
+  // console.log(props.duplicateFound);
+
   let display = '';
   switch(props.activeModal) {
     case('register'):
@@ -21,7 +23,6 @@ export default function ConfirmationModal(props) {
     default: 
       break;
   }
-  
  return (
   <div className="modal" tabIndex="1" role="dialog">
     <div className="modal-dialog" role="document">

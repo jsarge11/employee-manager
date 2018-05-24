@@ -20,4 +20,33 @@ button {
  justify-content: center;
  height: 100vh;
 }
-
+input, textarea {
+ border: 0;
+ border-bottom: 1px solid grey; 
+ opacity: .5;
+ transition: all .5s ease-in-out;
+ margin-top: 20px;
+}
+textarea:focus, input:focus{
+ outline: none;
+ border-bottom: 1px solid blue;
+ opacity: 1;
+ transition: all .5s ease-in-out;
+}
+.input-error {
+ border: 0;
+ border-bottom: 1px solid red; 
+ opacity: .5;
+ transition: all .5s ease-in-out;
+ margin-top: 20px;
+}
+.input-error:focus {
+ border: 0;
+ border-bottom: 1px solid red; 
+ opacity: 1;
+ transition: all .5s ease-in-out;
+ margin-top: 20px;
+}
+p {
+ margin: 0;
+}

@@ -43,7 +43,7 @@ validateEmail = () => {
 login = () => {
   if (this.validateEmail()) {
     let { email } = this.state;
-    axios.post('/user/login', { email }).then( res => {
+    axios.post('/user/manual', { email }).then( res => {
       let success = bcrypt.compareSync(this.state.password, res.data.password);
       if (success) {
         let { employee_id } = res.data;

@@ -1,0 +1,1 @@
+select work_phone, personal_phone, work_email, personal_email from employees;

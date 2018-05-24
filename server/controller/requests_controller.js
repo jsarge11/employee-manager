@@ -83,5 +83,11 @@ module.exports = {
             }
        })
        
+ },
+ returnAll: (req, res) => {
+      const db = req.app.get('db');
+      db.get_all_requests().then( reqs => {
+            res.status(200).send( reqs );
+      }).catch(error => res.status(404).send(error));
  }
 }

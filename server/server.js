@@ -89,6 +89,7 @@ app.get('/callback/auth', passport.authenticate('auth0', {
 }))
 
 //user control
+app.get('/user/manual', user.login)
 app.post('/user/auth', user.getUser)
 app.post('/user/getcompany', user.getCompany)
 app.put('/user/update', user.update)
@@ -101,9 +102,11 @@ app.post('/user/login', user.login);
 app.post('/user/create', user.createLogin)
 // registration control
 app.get('/user/request', requests.getRequest)
+app.get('/user/allrequests', requests.returnAll)
 app.post('/user/request', requests.registerRequest)
 app.post('/user/check', requests.check)
 app.delete('/user/request', requests.deny)
+
 
 // employee control
 app.get('/employees', emp.getEmployees)
