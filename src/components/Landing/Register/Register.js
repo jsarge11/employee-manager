@@ -82,9 +82,7 @@ class Register extends React.Component {
     if (this.state.first_name && 
         this.state.last_name &&
         this.state.work_phone &&
-        this.state.personal_phone &&
         this.state.work_email &&
-        this.state.personal_email &&
         this.state.address &&
         this.state.city &&
         this.state.state &&
@@ -157,17 +155,12 @@ class Register extends React.Component {
       state: state,
       zip: zip
     }
-    axios.post('/user/noduplicate', { newObj }).then (res => {
       let { company } = this.props;
       axios.post('/user/request', { newObj, company }).then(res => {
         this.setState({ activeModal: 'success' })
       }).catch((error) => {
         this.setState({ activeModal: 'error' })
       })
-
-    }).catch(error => {
-      document.getElementById("alert").innerHTML = error.response.data;
-    })
   }
 
 

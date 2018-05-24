@@ -1,3 +1,2 @@
-select employee_id from register_requests r
-join employees e on e.googleid = r.registration_key
-where e.work_email = $1;
+select employee_id from employees
+where work_email = $1;

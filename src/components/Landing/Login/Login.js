@@ -50,7 +50,7 @@ login = () => {
         // adding it to an object inside of an array so that the server can properly destructure it
         let user = [{ employee_id: employee_id }];
         axios.post('/user/auth', { user } ).then (res => {
-          this.props.updateUser(res.data);
+          this.props.updateUser(res.data.user);
         })
       } 
       else {

@@ -26,7 +26,7 @@ writeDocumentId = (id, message) => {
   document.getElementById(id).innerHTML = message;
 }
 
-login = () => {
+activateOwnPassword = () => {
   
   if (!this.state.password || !this.state.passwordConfirm) {
     this.writeDocumentId("alert", "Please fill out both password fields.");
@@ -42,7 +42,7 @@ login = () => {
         }
         axios.post('/user/create', { employee }).then (res => {
           console.log(res);
-        })  
+        }).catch(error => console.log(error))  
       })
 
     }
@@ -108,7 +108,7 @@ render() {
           <p> Please provide a valid key along with your email to start activation. </p>
           {!this.state.validKey ? <RaisedButton onClick={()=>this.checkKey()}label="Check Key"/> : ''}
           <div id="alert"></div>
-          <RaisedButton disabled={!this.state.validKey} label="Create Password and Activate" style={{margin: "15px 0"}} onClick={()=>this.login()}/>
+          <RaisedButton disabled={!this.state.validKey} label="Create Password and Activate" style={{margin: "15px 0"}} onClick={()=>this.activateOwnPassword()}/>
           <RaisedButton disabled={!this.state.validKey} href={process.env.REACT_APP_GOOGLE_LOGIN + "?key=" + this.state.key} label="Activate with Google" icon={googleIcon}/>
           <RaisedButton disabled={!this.state.validKey} href={process.env.REACT_APP_WINDOWLIVE_LOGIN}label="Activate with Outlook" icon={microsoftIcon}/>
 

@@ -17,8 +17,9 @@ getUser: (req, res) => {
         if (req.body.user) {
             if (req.body.user[0]) {
                 let { employee_id } = req.body.user[0];
-                db.get_employee_by_id(employee_id).then(newUser => {
-                    res.status(200).send(newUser);
+                db.get_employee_by_id(employee_id).then(user => {
+
+                    res.status(200).send({user});
                 })
             }
         }
@@ -73,6 +74,7 @@ getUser: (req, res) => {
  createLogin: (req, res) => {
     let { email, hash } = req.body.employee;
     const db = req.app.get('db');
+    console.log(email);
     db.get_employee_id([email]).then( id => {
         console.log(typeof id, id)
         db.create_employee_no_social(email, hash, +id[0].employee_id).then(()=> {
@@ -83,16 +85,15 @@ getUser: (req, res) => {
  login: (req, res) => {
     let { email } = req.body;
     const db = req.app.get('db');
+
+    console.log('found me');
     db.get_from_no_social().then( users => {
-        let newMap = users.map(item => {
+        users.map(item => {
             if (item.email === email) {
                 res.status(200).send(item);
                 return item;
             }
         })
-        if (!newMap[0]) {
-            res.status(401).send("Sorry, we can't find that email in our system.");
-        }
     }).catch((error=>res.status(500).send("error")))
  },
  checkDuplicates: (req, res) => {

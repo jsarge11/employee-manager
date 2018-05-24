@@ -89,7 +89,7 @@ app.get('/callback/auth', passport.authenticate('auth0', {
 }))
 
 //user control
-app.get('/user/manual', user.login)
+app.post('/user/manual', user.login)
 app.post('/user/auth', user.getUser)
 app.post('/user/getcompany', user.getCompany)
 app.put('/user/update', user.update)
