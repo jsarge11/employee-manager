@@ -112,6 +112,7 @@ app.delete('/user/request', requests.deny)
 app.get('/employees', emp.getEmployees)
 app.post('/employee/register', emp.registerEmployee)
 app.get('/employee/company', emp.getCompany)
+app.get('/company/id', emp.getID)
 
 // announcement control
 app.get('/company/announcements', ann.get)

@@ -27,34 +27,43 @@ class Home extends React.Component {
     isWhite: true,
     data: {},
     announceTitle: '',
-    announceBody: ''
+    announceBody: '',
+    ceo_id: 0
    }
  
  componentDidMount() {
   let { user } = this.props;
-  axios.post('/user/auth', { user }).then ( res => {
-    this.props.updateUser(res.data.user);
-    let { company_id } = res.data.user[0];
-    axios.get('/company/announcements?id=' + company_id).then (res => {
-      this.setState({announcements: res.data})
-    })
-    axios.get('/employees?id=' + company_id).then ( res => {
-      let treeJson = this.toJson(res.data.employees)
-      let reactOrgChart = this.createNestedObject(treeJson);
-
-      this.setState({ 
-        data : reactOrgChart,
-        employeesloaded : true,
-        company: company_id
+  if (user[0]) {
+    axios.get(`/company/id?companyid=${user[0].company_id}`).then(res => { 
+      this.setState({ ceo_id: +res.data[0].employee_id}, () => {
+        console.log(this.state.ceo_id);
+        axios.post('/user/auth', { user }).then ( res => {
+          this.props.updateUser(res.data.user);
+          let { company_id } = res.data.user[0];
+          axios.get('/company/announcements?id=' + company_id).then (res => {
+            this.setState({announcements: res.data})
+          })
+          axios.get('/employees?id=' + company_id).then ( res => {
+            let treeJson = this.toJson(res.data.employees)
+            let reactOrgChart = this.createNestedObject(treeJson);
+    
+            this.setState({ 
+              data : reactOrgChart,
+              employeesloaded : true,
+              company: company_id
+            })
+      
+        }).catch(error => {console.log(error)})
+      }).catch((error) => {
+        console.log(error);
+        console.log('user failed')
+        this.setState({ status: 'fail'}) 
+        }
+      )
       })
+  });
+  }
   
-    }).catch(error => {console.log(error)})
-  }).catch((error) => {
-    console.log(error);
-    console.log('user failed')
-    this.setState({ status: 'fail'}) 
-    }
-  )
 }
 
 updateValue = (field, value) => {
@@ -83,21 +92,22 @@ toJson = (data) => {
 }
 //adds the children appropriately
 createNestedObject = (arr) => {
-  let newArr = arr.slice();
-
-  let length = newArr.length;
-  for(let i = 0; i < length; i++) { 
-    if (newArr[i].reports_to) {
-      let reports_to = newArr[i].reports_to;
-      let arrItem = newArr.find((item) => +item.id === +reports_to);
-      if (arrItem) {
-        arrItem.children.push(newArr[i]);
-        arrItem.person.totalReports += 1;
+  
+    let newArr = arr.slice();
+    
+    let length = newArr.length;
+    for(let i = 0; i < length; i++) { 
+      if (newArr[i].reports_to) {
+        let reports_to = newArr[i].reports_to;
+        let arrItem = newArr.find((item) => +item.id === +reports_to);
+        if (arrItem) {
+          arrItem.children.push(newArr[i]);
+          arrItem.person.totalReports += 1;
+        }
       }
     }
-  }
-  let object = newArr.find((item)=> +item.id === 1) 
-  return object;
+    let object = newArr.find((item)=> +item.id === this.state.ceo_id) 
+    return object;
 }
 
 logOutStatus = () => {

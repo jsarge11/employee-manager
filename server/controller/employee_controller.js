@@ -29,5 +29,12 @@ module.exports = {
     db.get_company_name(id).then(name => {
       res.status(200).send(name);
     })
+  },
+  
+  getID: (req, res) => {
+    const db = req.app.get('db');
+    db.get_ceo_id(req.query.companyid).then(id => {
+      res.status(200).send(id);
+    })
   }
 }

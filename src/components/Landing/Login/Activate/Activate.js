@@ -34,7 +34,6 @@ activateOwnPassword = () => {
   else {
     if (this.state.password === this.state.passwordConfirm) {
 
-      /*------------------------------------------------------------Not working yet--------------------------------------------------------------*/
       let hash = bcrypt.hash(this.state.password, 10, (err,hash) => {
         let employee = {
           hash: hash,

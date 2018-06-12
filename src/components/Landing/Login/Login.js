@@ -25,14 +25,14 @@ class Login extends React.Component {
 }
 validateEmail = () => {
   if (!this.state.email.includes("@")) {
-    return true;
+    return false;
   } else {
     let arr = this.state.email.split("@");
     if (arr.length !== 2) {
-      return true;
+      return false;
     } else {
       if (arr[0].length === 0 || arr[1].length === 0) {
-        return true;
+        return false;
       } else {
         return true;
       }
@@ -60,7 +60,7 @@ login = () => {
         })
         document.getElementById("alert").innerHTML = "Sorry, the password you entered doesn't match.";
       }
-    }).catch(error=>document.getElementById("alert").innerHTML = error.response.data)
+    }).catch(error=> document.getElementById("alert").innerHTML = error.response.data)
   }
   else {
     document.getElementById("alert").innerHTML = "Invalid Email."
