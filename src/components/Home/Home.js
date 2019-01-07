@@ -3,7 +3,7 @@ import { updateUser, changeImage, logOut, updateCompany } from '../../ducks/redu
 import { connect } from 'react-redux'
 import { Redirect } from 'react-router-dom'
 import axios from 'axios'
-import OrgChart from '@latticehr/react-org-chart/src_spread/react/org-chart'
+import OrgChart from '@latticehr/dist'
 import HomeNav from './HomeNav/HomeNav';
 import Personal from './Personal/Personal'
 import loading from '../../img/loading.svg'
@@ -30,11 +30,11 @@ class Home extends React.Component {
     announceBody: '',
     ceo_id: 0
    }
- 
+
  componentDidMount() {
   let { user } = this.props;
   if (user[0]) {
-    axios.get(`/company/id?companyid=${user[0].company_id}`).then(res => { 
+    axios.get(`/company/id?companyid=${user[0].company_id}`).then(res => {
       this.setState({ ceo_id: +res.data[0].employee_id}, () => {
         console.log(this.state.ceo_id);
         axios.post('/user/auth', { user }).then ( res => {
@@ -46,24 +46,24 @@ class Home extends React.Component {
           axios.get('/employees?id=' + company_id).then ( res => {
             let treeJson = this.toJson(res.data.employees)
             let reactOrgChart = this.createNestedObject(treeJson);
-    
-            this.setState({ 
+
+            this.setState({
               data : reactOrgChart,
               employeesloaded : true,
               company: company_id
             })
-      
+
         }).catch(error => {console.log(error)})
       }).catch((error) => {
         console.log(error);
         console.log('user failed')
-        this.setState({ status: 'fail'}) 
+        this.setState({ status: 'fail'})
         }
       )
       })
   });
   }
-  
+
 }
 
 updateValue = (field, value) => {
@@ -73,7 +73,7 @@ updateValue = (field, value) => {
 toJson = (data) => {
   let objArr = [];
   data.forEach(item => {
-    
+
     let obj = {
       id: item.employee_id,
       person: {
@@ -92,11 +92,11 @@ toJson = (data) => {
 }
 //adds the children appropriately
 createNestedObject = (arr) => {
-  
+
     let newArr = arr.slice();
-    
+
     let length = newArr.length;
-    for(let i = 0; i < length; i++) { 
+    for(let i = 0; i < length; i++) {
       if (newArr[i].reports_to) {
         let reports_to = newArr[i].reports_to;
         let arrItem = newArr.find((item) => +item.id === +reports_to);
@@ -106,7 +106,7 @@ createNestedObject = (arr) => {
         }
       }
     }
-    let object = newArr.find((item)=> +item.id === this.state.ceo_id) 
+    let object = newArr.find((item)=> +item.id === this.state.ceo_id)
     return object;
 }
 
@@ -117,7 +117,7 @@ logOutStatus = () => {
 togglePersonal = () => {
   this.setState({active: !this.state.active})
 }
-changeBackgroundImage = (value) => { 
+changeBackgroundImage = (value) => {
   this.setState({isWhite: value})
 }
 post = () => {
@@ -169,21 +169,21 @@ post = () => {
   }
   return (
    <div id="home-wrapper">
-    <div className="home">  
-      {this.props.user[0] ? 
-      
-      <div> 
+    <div className="home">
+      {this.props.user[0] ?
+
+      <div>
         <Notifications />
-        
+
         <HomeNav togglePersonal={this.togglePersonal}
                  logOutStatus={this.logOutStatus}
-        /> 
-        
-        <Personal active={this.state.active} 
+        />
+
+        <Personal active={this.state.active}
                   togglePersonal={this.togglePersonal}
                   user={this.props.user}
         />
-        {this.state.employeesloaded ? 
+        {this.state.employeesloaded ?
           <Tabs inkBarStyle={inkBar}>
           <Tab style={tabStyles} label="Org Chart" >
           <div className = "tree">
@@ -198,33 +198,33 @@ post = () => {
           {/* <ToolbarTitle text="New Hires" /> */}
       </Toolbar>
         <div className="announcement-wrapper">
-          <div className="company-announcements"> 
+          <div className="company-announcements">
             {announcements[0] ? announcements : <div><h2>No announcements posted, check back soon.</h2><br/><br/></div>}
           </div>
-        
-         {this.props.user[0].is_hr || this.props.user[0].is_manager ? 
-          <div> 
+
+         {this.props.user[0].is_hr || this.props.user[0].is_manager ?
+          <div>
           <input className="announcement-text" onChange={(e)=>this.updateValue("announceTitle", e.target.value)}  value={this.state.announceTitle} placeholder="Announcement Title" />
             <input className="announcement-text" onChange={(e)=>this.updateValue("announceBody", e.target.value)} value={this.state.announceBody} style={{width: '100%'}} placeholder="Keep your announcements sweet and short" />
             <RaisedButton onClick={()=>this.post()}label="submit"/>
           </div>
-        
+
           : ''
-        
+
         }
-          
+
           <br/>
         </div>
       </Paper>
           </Tab>
           </Tabs>
-        
-          : 
+
+          :
         <div className="loading">
           <img src={loading} alt="loading"/>
-        </div>} 
-      </div> 
-      : 
+        </div>}
+      </div>
+      :
       <div className="loading">
         <img src={loading} alt="loading"/>
       </div>
@@ -235,7 +235,7 @@ post = () => {
   )
 }
 else {
- 
+
   return (
    <Redirect push to="/" />
   )
