@@ -6,9 +6,9 @@ import './nav.css'
 
 function Nav(props) {
  return (
-  <div id="nav-wrapper"> 
+  <div id="nav-wrapper">
     <div className="nav">
-      <Link className="menu-item" to="/about">About Us</Link>
+      <Link className="menu-item" to="/about">Test Me!</Link>
     {props.location.pathname === "/home" ? <Link className="menu-item" to="/">Home</Link> : <div></div>}
     {props.user[0] ? <Link className="menu-item" to="/home">Dashboard</Link> : <div></div>}
     {!props.user[0] ? <Link className="menu-item" to="/register">Register</Link> : <div></div>}

@@ -22,15 +22,18 @@ const toolStyle = {
    <div id="about-wrapper">
     <Paper style={style} zDepth={5}>
      <Toolbar style={toolStyle}>
-      <ToolbarTitle text="About" />
+      <ToolbarTitle text="Testing Credentials" />
        <Link style={{textDecoration: "none"}} to="/"><h1 className="close-paper">&times;</h1></Link>
      </Toolbar>
-     <div className="about-content"> <p>
-      After being dissatisfied with the inefficiency of physical org-charts, the cost of functional virtual org-charts, and the lack of functionality and ugly look of free org-charts, Argos was born. Our goal is to create a cost-effective, seamless employee-lookup in a simple, easy to look at fashion. We provide only the necessary features, and provide the ability for you to connect your already loved tools for integration with Argos. <br/><br/>
-  
-       We're not looking to replace all of your business tools, just be the first step in managing your employees and your business. <br/><br/><br/>
-      </p>
-       <h2>Argos Visual® – Helping you see everything. </h2>
+     <div className="about-content">
+     <h2>Employer Login</h2>
+     <p>
+       For those looking to test this product in anyway, please login with the following credentials. <br/><br/>
+       Username: <em>bat@batman.com</em><br/>
+       Password: <em>batman</em>
+       <br/>
+       <br/>
+     </p>
      </div>
     </Paper>
    </div>
